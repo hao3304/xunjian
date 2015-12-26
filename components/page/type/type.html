@@ -4,7 +4,7 @@
         <div class="col-lg-3 col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a class="btn btn-primary btn-sm" v-on="click:onAddType"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <a class="btn btn-primary btn-sm" v-on="click:onAddType"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                         添加类型
                     </a>
                 </div>
@@ -13,8 +13,8 @@
                         <a href="javascript:;" v-repeat="l in list" v-on="click:onSelectType(l.FId)" v-class="active:l.FId == selectType" class="list-group-item">
                             <h5 class="list-group-item-heading">{{l.FCategoryName}}
                                 <div class="pull-right type-edit-bar">
-                                    <span v-on="click:onEditType(l)" class="glyphicon glyphicon-edit"></span>
-                                    <span v-on="click:onDelType(l.FId)" class="glyphicon glyphicon-remove"></span>
+                                    <span v-on="click:onEditType(l)" class="icon icon-edit"></span>
+                                    <span v-on="click:onDelType(l.FId)" class="icon icon-remove"></span>
                                 </div>
                             </h5>
                             <p class="list-group-item-text">{{l.FRemark}}</p>
@@ -25,7 +25,7 @@
         </div>
         <div class="col-lg-9 col-md-9">
             <div style="margin-bottom: 10px;">
-                <a v-class="disabled:!selectType" class="btn btn-primary btn-sm " v-on="click:onAddContent"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <a v-class="disabled:!selectType" class="btn btn-primary btn-sm " v-on="click:onAddContent"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                     添加内容
                 </a>
             </div>

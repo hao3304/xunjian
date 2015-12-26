@@ -9,30 +9,30 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <a v-class="disabled:!selectPosition" class="btn btn-primary btn-sm" v-on="click:onAddPosition" role="button">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="icon icon-plus" aria-hidden="true"></span>
                                 添加子部位
                             </a>
                             <!--<a v-class="disabled:!selectPosition" class="btn btn-info btn-sm"  role="button">
-                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                                <span class="icon icon-arrow-up" aria-hidden="true"></span>
                                 上移
                             </a>
                             <a v-class="disabled:!selectPosition" class="btn btn-info btn-sm"  role="button">
-                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                                <span class="icon icon-arrow-down" aria-hidden="true"></span>
                                 下移
                             </a>-->
                             <a v-class="disabled:!selectPosition" v-on="click:onEditPosition" class="btn btn-primary btn-sm"  role="button">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                <span class="icon icon-edit" aria-hidden="true"></span>
                                 编辑
                             </a>
 
                             <a v-class="disabled:!selectPosition" v-on="click:onDelPosition" class="btn btn-warning btn-sm"  role="button">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                <span class="icon icon-remove" aria-hidden="true"></span>
                                 删除
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <a v-on="click:onAddObject" v-class="disabled:!selectPosition" class="btn btn-primary btn-sm"  role="button">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                <span class="icon icon-user" aria-hidden="true"></span>
                                 {{do}}子对象
                             </a>
                         </div>

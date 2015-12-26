@@ -1,10 +1,10 @@
 <div class="page-object">
     <div class="panel panel-info" v-style="min-height:contentHeight+'px'">
         <div class="panel-heading" style="line-height: 28px;text-align: center">
-            <a class="btn btn-primary  btn-sm pull-left" v-on="click:onAddObject" href="javascript:;"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <a class="btn btn-primary  btn-sm pull-left" v-on="click:onAddObject" href="javascript:;"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                 Ìí¼Ó
             </a>
-            <a class="btn btn-default pull-right btn-sm" href="#route"  role="button"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            <a class="btn btn-default pull-right btn-sm" href="#route"  role="button"> <span class="icon icon-arrow-left" aria-hidden="true"></span>
                 ·µ»Ø
             </a>
 
@@ -24,8 +24,8 @@
                         <a v-on="click:onDelObject(l.FId)" href="javascript:;">É¾³ý</a>
 
                         <div class="arrow-bar">
-                            <div><span v-on="click:changeUp(l.FObjectId,$index)"  v-class="glyphicon-exclamation-sign:$index==0,glyphicon-arrow-up:$index!=0" class="glyphicon "></span></div>
-                            <div><span v-on="click:changeDown(l.FObjectId,$index)" v-class="glyphicon-exclamation-sign:$index==(list.length-1),glyphicon-arrow-down:$index!=(list.length-1)" class="glyphicon"></span></div>
+                            <div><span v-on="click:changeUp(l.FObjectId,$index)"  v-class="icon-exclamation-sign:$index==0,icon-arrow-up:$index!=0" class="icon "></span></div>
+                            <div><span v-on="click:changeDown(l.FObjectId,$index)" v-class="icon-exclamation-sign:$index==(list.length-1),icon-arrow-down:$index!=(list.length-1)" class="icon"></span></div>
                         </div>
                     </td>
                 </tr>

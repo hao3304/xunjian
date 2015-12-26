@@ -1,12 +1,12 @@
 <div class="container-fluid page-route" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
     <div class="row">
         <div class="col-lg-8 col-md-8" STYLE="margin-bottom: 10px;">
-            <a class="btn btn-primary btn-sm" v-on="click:onAddRoute"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <a class="btn btn-primary btn-sm" v-on="click:onAddRoute"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                 添加路线
             </a>
         </div>
         <div class="col-lg-4 col-md-4" v-show="selectRoute">
-            <a class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <a class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                 添加区段
             </a>
         </div>
@@ -40,11 +40,11 @@
                             <h5 class="list-group-item-heading">{{s.sectionName}}
                             </h5>
                             <div class="remove-bar">
-                                <span v-on="click:onDelSection(s.FSectionId)" class="glyphicon glyphicon-remove"></span>
+                                <span v-on="click:onDelSection(s.FSectionId)" class="icon icon-remove"></span>
                             </div>
                             <div class="arrow-bar">
-                                <div><span v-on="click:changeUp(s.FSectionId,$index)" v-class="glyphicon-exclamation-sign:$index==0,glyphicon-arrow-up:$index!=0" class="glyphicon "></span></div>
-                                <div><span v-on="click:changeDown(s.FSectionId,$index)" v-class="glyphicon-exclamation-sign:$index==(sections.length-1),glyphicon-arrow-down:$index!=(sections.length-1)" class="glyphicon"></span></div>
+                                <div><span v-on="click:changeUp(s.FSectionId,$index)" v-class="icon-exclamation-sign:$index==0,icon-arrow-up:$index!=0" class="icon "></span></div>
+                                <div><span v-on="click:changeDown(s.FSectionId,$index)" v-class="icon-exclamation-sign:$index==(sections.length-1),icon-arrow-down:$index!=(sections.length-1)" class="icon"></span></div>
                             </div>
                             <span class="number">{{$index+1}}</span>
                         </a>
@@ -142,7 +142,7 @@
                         <td>{{s.fullname}}</td>
                         <td>
                             <!--<button v-on="click:onSelectSection(s.value)" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-check"></span>
+                            <span class="icon icon-check"></span>
                             添加</button>-->
                             <input type="checkbox" value="{{s.value}}" v-attr="checked:_hasCheck(s.value)" v-on="change:onSelectChange" class="form-control">
                         </td>

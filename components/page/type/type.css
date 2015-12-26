@@ -1,10 +1,10 @@
 .page-type .list-group-item:hover .type-edit-bar {
   visibility: visible;
 }
-.page-type .list-group-item:hover .glyphicon {
+.page-type .list-group-item:hover .icon {
   color: #ccc;
 }
-.page-type .list-group-item:hover .glyphicon:hover {
+.page-type .list-group-item:hover .icon:hover {
   color: #c12e2a;
 }
 .page-type .type-edit-bar {

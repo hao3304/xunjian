@@ -1,7 +1,7 @@
 <div class="panel panel-info" v-style="min-height:contentHeight+'px'">
     <div class="panel-heading" style="line-height: 28px;">
           巡检记录详情
-        <a class="btn btn-default pull-right btn-sm" href="#record"  role="button"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        <a class="btn btn-default pull-right btn-sm" href="#record"  role="button"> <span class="icon icon-arrow-left" aria-hidden="true"></span>
             返回
         </a>
     </div>
@@ -26,14 +26,14 @@
                             <label class="col-sm-4 control-label">开始时间</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control input-sm" disabled value="{{detail.FStartTime | datetime}}">
-                                <span style="right: 15px;" class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
+                                <span style="right: 15px;" class="icon icon-calendar form-control-feedback" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">结束时间</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control input-sm" disabled value="{{detail.FFinishiTime | datetime}}">
-                                <span style="right: 15px;" class="glyphicon glyphicon-calendar form-control-feedback" aria-hidden="true"></span>
+                                <span style="right: 15px;" class="icon icon-calendar form-control-feedback" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,21 +79,21 @@
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9">
                     <p>
-                        <a class="btn btn-default" role="button"> <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                        <a class="btn btn-default" role="button"> <span class="icon icon-upload" aria-hidden="true"></span>
                             导出
                         </a>
-                        <a class="btn btn-default" role="button"> <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                        <a class="btn btn-default" role="button"> <span class="icon icon-picture" aria-hidden="true"></span>
                             图形演示
                         </a>
-                        <!--<a class="btn btn-default" role="button"> <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>-->
+                        <!--<a class="btn btn-default" role="button"> <span class="icon icon-info-sign" aria-hidden="true"></span>-->
                             <!--生产缺陷-->
                         <!--</a>-->
 
-                        <a v-show="detail.FCheckStatus==0" v-on="click:onCheck(detail.FId)" class="btn btn-primary pull-right" role="button"> <span class="glyphicon  glyphicon-ok" aria-hidden="true"></span>
+                        <a v-show="detail.FCheckStatus==0" v-on="click:onCheck(detail.FId)" class="btn btn-primary pull-right" role="button"> <span class="icon  icon-ok" aria-hidden="true"></span>
                             审核
                         </a>
 
-                        <a v-show="detail.FCheckStatus!=0" v-on="click:onRemoveCheck(detail.FId)" class="btn btn-danger pull-right" role="button"> <span class="glyphicon  glyphicon-remove" aria-hidden="true"></span>
+                        <a v-show="detail.FCheckStatus!=0" v-on="click:onRemoveCheck(detail.FId)" class="btn btn-danger pull-right" role="button"> <span class="icon  icon-remove" aria-hidden="true"></span>
                             撤销审核
                         </a>
 
@@ -118,7 +118,7 @@
                             <td  rowspan="{{r.objrows}}" style="vertical-align: middle;" v-show="r.objrows" >{{r.objectName}}</td>
                             <td>{{r.contentName}}</td>
                             <td>{{r.FContentStatus | status}}</td>
-                            <td>{{r.FContentValue}} <span class="glyphicon glyphicon-pencil pull-right" v-show="r.FInputType==0"></span><span class="glyphicon glyphicon-phone pull-right" v-show="r.FInputType==1"></span></td>
+                            <td>{{r.FContentValue}} <span class="icon icon-pencil pull-right" v-show="r.FInputType==0"></span><span class="icon icon-phone pull-right" v-show="r.FInputType==1"></span></td>
                             <td><a  v-on="click:getPic(r.FId)" href="javascript:;" v-show="r.fileCount>0">查看图片</a></td>
 
                             <td>{{r.FRemark}}</td>
