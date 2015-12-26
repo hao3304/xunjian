@@ -1,0 +1,47 @@
+.page-route{
+
+  .custom{
+    tr{
+      background-color: #fff;
+    }
+  }
+
+  .arrow-bar{
+    visibility: hidden;
+    position: absolute;
+    right: 5px;
+    top:2px;
+    color: #ccc;
+  }
+
+  .remove-bar{
+    visibility: hidden;
+    position: absolute;
+    right: 25px;
+    top:10px;
+    color: #ccc;
+  }
+
+
+  .list-group-item:hover{
+    .arrow-bar{
+      visibility: visible;
+    }
+
+    .remove-bar{
+      visibility: visible;
+    }
+
+    .remove-bar:hover {
+      span{
+      color: #ACD02F;
+      }
+    }
+
+    .arrow-bar{
+      span:hover{
+        color: #ACD02F;
+      }
+    }
+  }
+}

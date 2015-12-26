@@ -1,0 +1,12 @@
+.page-type .list-group-item:hover .type-edit-bar {
+  visibility: visible;
+}
+.page-type .list-group-item:hover .glyphicon {
+  color: #ccc;
+}
+.page-type .list-group-item:hover .glyphicon:hover {
+  color: #c12e2a;
+}
+.page-type .type-edit-bar {
+  visibility: hidden;
+}

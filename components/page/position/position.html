@@ -1,0 +1,177 @@
+<div class="container-fluid page-position" v-style="min-height:contentHeight+'px'">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 left-tree">
+            <div class="ztree" id="tree"></div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="col-lg-12 col-md-12 right-container">
+                <div class="col-lg-12  col-md-12" style="margin-bottom: 10px">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <a v-class="disabled:!selectPosition" class="btn btn-primary btn-sm" v-on="click:onAddPosition" role="button">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                添加子部位
+                            </a>
+                            <!--<a v-class="disabled:!selectPosition" class="btn btn-info btn-sm"  role="button">
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                                上移
+                            </a>
+                            <a v-class="disabled:!selectPosition" class="btn btn-info btn-sm"  role="button">
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                                下移
+                            </a>-->
+                            <a v-class="disabled:!selectPosition" v-on="click:onEditPosition" class="btn btn-primary btn-sm"  role="button">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                编辑
+                            </a>
+
+                            <a v-class="disabled:!selectPosition" v-on="click:onDelPosition" class="btn btn-warning btn-sm"  role="button">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                删除
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <a v-on="click:onAddObject" v-class="disabled:!selectPosition" class="btn btn-primary btn-sm"  role="button">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                {{do}}子对象
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">巡检部位</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">部位名称</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" v-model="position2.name" class="form-control input-sm" disabled  >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">X坐标</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" v-model="position2.locationX" class="form-control input-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Y坐标</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" v-model="position2.locationY" class="form-control input-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Z坐标</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" v-model="position2.locationZ" class="form-control input-sm" disabled>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">对象列表</div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>对象名</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-repeat="s in selectObjects">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{s.FObjectFullName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="positionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加巡检部位</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">部位名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="position.name" class="form-control" placeholder="部位名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">X坐标</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="position.locationX" class="form-control" placeholder="X坐标">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">Y坐标</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="position.locationY" class="form-control" placeholder="Y坐标">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">Z坐标</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="position.locationZ" class="form-control" placeholder="Z坐标">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on="click:onSubmitPosition">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="objectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加巡检对象</h4>
+                </div>
+                <div class="modal-body"  style="height: 300px;overflow-y: auto">
+                   <table class="table table-bordered">
+                       <thead>
+                       <tr>
+                           <th>对象名称</th>
+                           <th>操作</th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <tr v-repeat="p in positionList">
+                           <td>{{p.FObjectFullName}}</td>
+                           <td>
+                               <input data-value="{{p.FId}}" v-attr="checked:_hasCheck(p.FId)" class="form-control"  type="checkbox">
+                           </td>
+                       </tr>
+                       </tbody>
+                   </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on="click:onSubmitObj">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<c-foot></c-foot>

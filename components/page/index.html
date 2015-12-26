@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit"><title>水电站巡视检查管理系统</title>
+    <link rel="stylesheet" href="/static/css/zui.css"/>
+</head>
+<body >
+<div id="app" class="wrap" >
+    <c-nav view="{{currentView}}" stations="{{base.stationList}}" ></c-nav>
+    <div class="admin" style="overflow-y: auto;overflow-x: hidden"><div   v-component="{{currentView}}" keep-alive></div>
+    </div>
+    <c-loading show="{{loading}}"></c-loading>
+    <c-progress show="{{progress}}"></c-progress>
+
+</div>
+<script src="/component_modules/jquery.min.js"></script>
+<script src="/static/js/ajaxfileupload.js"></script>
+<script src="/static/js/respond.js"></script>
+<script src="/static/js/mod.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/zTree_v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script src="/static/js/laydate.js"></script>
+<script type="text/javascript">
+    require(["main/main.js"]);
+</script>
+</body>
+</html>

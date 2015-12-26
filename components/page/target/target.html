@@ -1,0 +1,125 @@
+<div class="container-fluid page-target" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading" v-on="click:clearSelect">
+                    巡检类型
+                </div>
+                <div class="panel-body" style="padding: 0">
+                    <div class="list-group" v-style="styles">
+                        <a v-repeat="t in typeList" v-class="active:selectType==t.FId" class="list-group-item" v-on="click:onSelectType(t.FId)">
+                            <h5 class="list-group-item-heading">
+                                {{t.FCategoryName}}
+                            </h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9" >
+                <a class="btn btn-primary btn-sm" style="margin-bottom: 10px;" v-on="click:onAdd" role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    添加
+                </a>
+            <div v-style="styles">
+                <table class="table custom table-bordered table-striped table-hover" >
+                    <thead>
+                    <tr>
+                        <th>对象名</th>
+                        <th>对象全名</th>
+                        <th>巡检类型</th>
+                        <th>频次</th>
+                        <th>频次类型</th>
+                        <th>巡检状态</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr v-repeat="l in filterList" >
+                        <td>{{l.FObjectName}}</td>
+                        <td>{{l.FObjectFullName}}</td>
+                        <td>{{l.FcategoryName}}</td>
+                        <td>{{l.FInspectCycle}}</td>
+                        <td>{{l.FCycleType | cycle_type}}</td>
+                        <td>{{l.FInspectstatus | status}}</td>
+                        <td>{{l.FRemark}}</td><td><a href="javascript:;" v-on="click:onEditTarget(l)">编辑</a> <a href="javascript:;" v-on="click:onDelTarget(l.FId)">删除</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--<c-pager></c-pager>-->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加巡检对象</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">对象名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="target.objectname" class="form-control" placeholder="对象名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">对象全称</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="target.fullName" class="form-control" placeholder="对象全称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">周期</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="target.inspectCycle" class="form-control"  placeholder="周期">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">周期类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="target.cycleType" options="base.cycleType">
+                                    <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">巡检类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="target.categoryId" options="base.categoryList">
+                                    <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="target.inspectStatus" options="base.status">
+                                    <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" v-model="target.remark" class="form-control"  placeholder="备注"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on="click:onSubmit">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<c-foot></c-foot>

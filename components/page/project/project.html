@@ -1,0 +1,112 @@
+<div class="container-fluid page-marker" v-style="min-height:contentHeight+'px'">
+    <div class="row">
+        <div class="col-lg-12 col-md-12" STYLE="margin-bottom: 10px;">
+                <a class="btn btn-primary btn-sm " v-on="click:onAdd" role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    创建
+                </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <table class="table custom table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>计划名称</th>
+                    <th>开始时间</th>
+                    <th>截止时间</th>
+                    <th>路线</th>
+                    <th>巡检人</th>
+                    <th>状态</th>
+                    <th>周期</th>
+                    <th>周期类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-repeat="p in plans"><td>{{p.FRemark}}</td><td>{{p.FStartTime | datetime}}</td><td>{{p.FEndTime | datetime}}</td><td>{{p.routName}}</td><td>{{p.FChargePersonName}}</td><td>{{p.FStatus | project_state}}</td><td>{{p.FCycle}}</td><td>{{p.FCycleType | cycle_type}}</td><td><a href="#" v-on="click:onEditPlan(p)">编辑</a> <a href="javascript:;" v-on="click:onDelPlan(p.FId)" >删除</a></td></tr>
+                </tbody>
+            </table>
+            <!--<c-pager></c-pager>-->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{active}}巡检计划</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-2 control-label">计划名称</label>
+                            <div class="col-sm-10">
+                                <input  type="text" v-model="plan.remark"  class="form-control" placeholder="巡检计划">
+                                <span v-show="validation.remark" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-2 control-label">开始时间</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="plan.startTime" id="startTime" class="form-control" placeholder="开始时间">
+                                <span v-show="validation.startTime" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">截止时间</label>
+                            <div class="col-sm-10">
+                                <input type="text"  v-model="plan.endTime" class="form-control" id="endTime"  placeholder="截止时间">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">路线</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="plan.routId" options="base.routList">
+                                    <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">巡检人</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="plan.ChargePersonName" options="base.userList">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="plan.status">
+                                    <option value="1">开启</option>
+                                    <option value="0">关闭</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">周期</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="plan.cycle" class="form-control"  placeholder="周期">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">周期类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="plan.cycleType" options="base.cycleType">
+                                    <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on="click:onSubmit">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<c-foot></c-foot>

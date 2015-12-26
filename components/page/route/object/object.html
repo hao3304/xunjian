@@ -1,0 +1,97 @@
+<div class="page-object">
+    <div class="panel panel-info" v-style="min-height:contentHeight+'px'">
+        <div class="panel-heading" style="line-height: 28px;text-align: center">
+            <a class="btn btn-primary  btn-sm pull-left" v-on="click:onAddObject" href="javascript:;"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                添加
+            </a>
+            <a class="btn btn-default pull-right btn-sm" href="#route"  role="button"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                返回
+            </a>
+
+            <span>{{getName(routeObject.name)}}</span>
+        </div>
+        <div class="panel-body">
+            <table class="table custom table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th style="text-align: center">对象名</th> <th style="text-align: center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-repeat="l in list" class="object-row">
+                    <td style="text-align: center">{{l.objectFullName}}</td>
+                    <td style="text-align: center;position: relative">
+                        <a v-on="click:onDelObject(l.FId)" href="javascript:;">删除</a>
+
+                        <div class="arrow-bar">
+                            <div><span v-on="click:changeUp(l.FObjectId,$index)"  v-class="glyphicon-exclamation-sign:$index==0,glyphicon-arrow-up:$index!=0" class="glyphicon "></span></div>
+                            <div><span v-on="click:changeDown(l.FObjectId,$index)" v-class="glyphicon-exclamation-sign:$index==(list.length-1),glyphicon-arrow-down:$index!=(list.length-1)" class="glyphicon"></span></div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="objectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">对象列表</h4>
+                </div>
+                <div class="modal-body" >
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" v-class="active:tab=='section'"><a v-on="click:changeTab('section')" href="javascript:;">区段对象</a></li>
+                        <li role="presentation"v-class="active:tab=='all'" ><a v-on="click:changeTab('all')" href="javascript:;">全部对象</a></li>
+                    </ul>
+                    <div style="max-height: 300px;overflow-y: auto;" v-if="tab=='section'">
+                        <table class="table custom table-bordered table-striped table-hover">
+                            <thead>
+                            <tr >
+                                <th>序号</th>
+                                <th>描述</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-repeat="s in sectionObj">
+                                <td>{{$index+1}}</td>
+                                <td>{{s.FObjectFullName}}</td>
+                                <td>
+                                    <input class="form-control" data-relationId="{{_getRelationId(s.FId)}}" v-attr="checked:_hasChecked(s.FId)" type="checkbox" v-on="click:onCheckObj(s.FId,this)">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="max-height: 300px;overflow-y: auto;" v-if="tab=='all'">
+                        <table class="table custom table-bordered table-striped table-hover">
+                            <thead>
+                            <tr >
+                                <th>序号</th>
+                                <th>描述</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-repeat="s in objs">
+                                <td>{{$index+1}}</td>
+                                <td>{{s.FObjectFullName}}</td>
+                                <td>
+                                    <input class="form-control" type="checkbox" data-relationId="{{_getRelationId(s.FId)}}"  v-attr="checked:_hasChecked(s.FId)" v-on="click:onCheckObj(s.FId,this)">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

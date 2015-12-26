@@ -1,0 +1,46 @@
+.nav-header {
+  min-height: 80px;
+  background: url(/static/images/title-bgcolor.jpg) !important;
+  margin-bottom: 0 !important;
+}
+.nav-header .nav-select {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+.nav-header .navbar-brand {
+  padding: 0 15px;
+}
+.nav-header .navbar-brand .title {
+  color: #fff;
+}
+.nav-header .container-fluid {
+  background: url(/static/images/title-img.jpg) no-repeat center top;
+  height: 80px;
+}
+.nav-header .container-fluid .navbar-nav.navbar-right {
+  margin-top: 50px;
+}
+.nav-header .container-fluid .navbar-nav.navbar-right a {
+  font-size: 16px;
+  padding: 5px 15px;
+}
+.nav-header .container-fluid .open > a {
+  background-color: #fff !important;
+  color: #0083DA !important;
+}
+.nav-header #nav-nar .active a.parent {
+  color: #262626;
+}
+.nav-header #nav-nar li a {
+  color: #fff;
+}
+.nav-header #nav-nar .dropdown-menu a {
+  color: #262626;
+}
+.nav-header #nav-nar .dropdown-menu .active a {
+  color: #fff;
+}
+.nav-header #nav-nar .active > a.parent {
+  background-image: linear-gradient(to bottom, #ffffff 0, #ffffff 100%) !important;
+}

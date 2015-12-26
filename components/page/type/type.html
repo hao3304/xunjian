@@ -1,0 +1,169 @@
+<div class="container-fluid page-type" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a class="btn btn-primary btn-sm" v-on="click:onAddType"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        添加类型
+                    </a>
+                </div>
+                <div class="panel-body" style="padding: 0">
+                    <div class="list-group" v-style="styles">
+                        <a href="javascript:;" v-repeat="l in list" v-on="click:onSelectType(l.FId)" v-class="active:l.FId == selectType" class="list-group-item">
+                            <h5 class="list-group-item-heading">{{l.FCategoryName}}
+                                <div class="pull-right type-edit-bar">
+                                    <span v-on="click:onEditType(l)" class="glyphicon glyphicon-edit"></span>
+                                    <span v-on="click:onDelType(l.FId)" class="glyphicon glyphicon-remove"></span>
+                                </div>
+                            </h5>
+                            <p class="list-group-item-text">{{l.FRemark}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div style="margin-bottom: 10px;">
+                <a v-class="disabled:!selectType" class="btn btn-primary btn-sm " v-on="click:onAddContent"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    添加内容
+                </a>
+            </div>
+            <table class="table custom table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>巡检标准</th>
+                    <th>巡检方法</th>
+                    <th>巡检内容名称</th>
+                    <th>巡检内容成果最大值</th>
+                    <th>巡检内容成果最小值</th>
+                    <th>巡检内容类型</th>
+                    <th>检查默认值</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-repeat="c in contentList">
+                    <td>{{c.standardName}}</td>
+                    <td>{{c.methoddName}}</td>
+                    <td>{{c.FContentName}}</td>
+                    <td>{{c.FContentMax==0?'-':c.FContentMax}}</td>
+                    <td>{{c.FContentMin==0?'-':c.FContentMin==0}}</td>
+                    <td>{{c.FContentType | content_type}}</td>
+                    <td>{{c.FContentDefault}}</td>
+                    <td>
+                        <a href="javascript:;" v-on="click:onEditContent(c)">编辑</a>
+                        <a v-on="click:onDelContent(c.FId)" href="javascript:;">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加巡检类型</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">类型名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="type.categoryName" class="form-control" placeholder="类型名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="type.remark" class="form-control"  placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" v-on="click:onSubmitType" class="btn btn-primary" >保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加巡检内容</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">内容名称</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="content.contentName" placeholder="内容名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">巡检标准</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" options="standardList" v-model="content.standardId" ></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">巡检方法</label>
+                            <div class="col-sm-10">
+                                <select  class="form-control" options="methodList" v-model="content.method" ></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">内容类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="content.contentType">
+                                    <option value="0">文字</option>
+                                    <option value="1">数字</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">最大值</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-attr="disabled:content.contentType==0" class="form-control" v-model="content.contentMax" placeholder="成果最大值">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">最小值</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-attr="disabled:content.contentType==0"  class="form-control" v-model="content.contentMin" placeholder="成果最小值">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">默认值</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="content.contentDefault" placeholder="检查默认值">
+                            </div>
+                        </div>
+                        <!--      <div class="form-group">
+                                  <label  class="col-sm-2 control-label">排序序号</label>
+                                  <div class="col-sm-10">
+                                      <input type="number" class="form-control" v-model="content.contentIndex" placeholder="排序序号">
+                                  </div>
+                              </div>-->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" v-on="click:onSubmitContent" class="btn btn-primary" >保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<c-foot></c-foot>

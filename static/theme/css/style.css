@@ -1,0 +1,233 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+.timeline {
+  font-family: "arial", "微软雅黑";
+  position: relative;
+}
+.timeline .timeline-title {
+  height: 95px;
+}
+.timeline .timeline-title .circle {
+  width: 83px;
+  height: 83px;
+  position: absolute;
+  top: 0;
+  left: 207px;
+  border: 6px solid rgba(0, 0, 0, 0.15);
+  border-radius: 95px;
+  text-indent: 0;
+  text-align: center;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.timeline .timeline-title .timeblock {
+  margin-top: 20px;
+  text-align: center;
+}
+.timeline .timeline-title .timeblock .year {
+  color: #B31818;
+  font-size: 20px;
+  font-weight: bold;
+}
+.timeline .timeline-title .timeblock .day {
+  font-size: 16px;
+  color: #6bc30d;
+  font-weight: bold;
+}
+.timeline .timeline-title .timeblock span {
+  display: inline-block;
+  height: 24px;
+  width: 18px;
+  background: url(../images/date.png) no-repeat 0 0;
+}
+.timeline .timeline-title .timeblock .numf {
+  background-position: 0px -48px;
+}
+.timeline .timeline-title .timeblock .nums {
+  background-position: 0px 0px;
+}
+.timeline .timeline-title .timeblock .numt {
+  background-position: 0px -24px;
+}
+.timeline .timeline-title .timeblock .numfo {
+  background-position: 0px -72px;
+}
+.timeline .timeline-wrap {
+  height: 350px;
+  background-image: url("../images/vertical.png");
+  background-position: 250px 0;
+  background-repeat: repeat-y;
+  padding: 20px 100px 0px 100px;
+  text-align: center;
+}
+.timeline .timeline-wrap .timeline-group {
+  padding: 0;
+  margin: 0;
+  height: 330px;
+  overflow: hidden;
+}
+.timeline .timeline-wrap .timeline-group li {
+  list-style: none;
+  height: 110px;
+  line-height: 110px;
+  position: relative;
+}
+.timeline .timeline-wrap .timeline-group li .left {
+  position: absolute;
+  left: 0;
+  line-height: 55px;
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+}
+.timeline .timeline-wrap .timeline-group li .left .year {
+  color: #AEAEAE;
+  font-size: 12px;
+}
+.timeline .timeline-wrap .timeline-group li .left .day {
+  color: #AEAEAE;
+  font-size: 18px;
+}
+.timeline .timeline-wrap .timeline-group li .point {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  top: 0;
+  background: url("../images/point.png") no-repeat 0 18px;
+  overflow: hidden;
+  left: 125px;
+}
+.timeline .timeline-wrap .timeline-group li .point b {
+  height: 16px;
+  width: 16px;
+  background: #fff;
+  display: block;
+  margin: 17px 0 0 19px;
+  border-radius: 18px;
+  border: 2px solid #6bc30d;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.timeline .timeline-wrap .timeline-group li .right {
+  position: absolute;
+  text-align: left;
+  width: 500px;
+  left: 200px;
+  -webkit-transition: all 1s linear;
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+}
+.timeline .timeline-wrap .timeline-group li .right .title {
+  height: 35px;
+  line-height: 35px;
+}
+.timeline .timeline-wrap .timeline-group li .right .title a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #747474;
+  cursor: pointer;
+}
+.timeline .timeline-wrap .timeline-group li .right .content {
+  font-size: 14px;
+  color: #6e6e6e;
+  line-height: 20px;
+}
+.timeline .timeline-wrap .timeline-group li.active .point b {
+  border: 7px solid rgba(107, 195, 13, 0.6);
+  margin: 12px 0px 0px 14px;
+  border-radius: 52px;
+}
+.timeline .timeline-wrap .timeline-group li.active .left {
+  opacity: 1;
+  -moz-opacity: 1;
+}
+.timeline .timeline-wrap .timeline-group li.active .left .year {
+  font-size: 13px;
+}
+.timeline .timeline-wrap .timeline-group li.active .left .day {
+  font-size: 19px;
+}
+.timeline .timeline-wrap .timeline-group li.active .right {
+  opacity: 1;
+  -moz-opacity: 1;
+}
+.timeline .timeline-wrap .timeline-group li.active .right .title a {
+  color: #6bc30d;
+  font-size: 26px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.timeline .timeline-wrap .timeline-group li.active .right .content {
+  font-size: 16px;
+}
+.timeline .timeline-foot {
+  height: 72px;
+}
+.timeline .timeline-foot .circle {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  left: 218px;
+  border: 6px solid rgba(0, 0, 0, 0.15);
+  border-radius: 95px;
+  text-indent: 0;
+  text-align: center;
+}
+.timeline .timeline-foot .circle .timeblock {
+  font-size: 0;
+  text-align: center;
+  margin-top: 18px;
+}
+.timeline .timeline-foot .circle .timeblock span {
+  display: inline-block;
+  height: 24px;
+  width: 18px;
+  background: url(../images/date.png) no-repeat 0 0;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.timeline .timeline-foot .circle .timeblock .num0 {
+  background-position: 0px 0px;
+}
+.timeline .timeline-foot .circle .timeblock .num1 {
+  background-position: 0px -24px;
+}
+.timeline .timeline-foot .circle .timeblock .num2 {
+  background-position: 0px -48px;
+}
+.timeline .timeline-foot .circle .timeblock .num3 {
+  background-position: 0px -72px;
+}
+.timeline .timeline-foot .circle .timeblock .num4 {
+  background-position: 0px -96px;
+}
+.timeline .timeline-foot .circle .timeblock .num5 {
+  background-position: 0px -120px;
+}
+.timeline .timeline-foot .circle .timeblock .num6 {
+  background-position: 0px -144px;
+}
+.timeline .timeline-foot .circle .timeblock .num7 {
+  background-position: 0px -168px;
+}
+.timeline .timeline-foot .circle .timeblock .num8 {
+  background-position: 0px -192px;
+}
+.timeline .timeline-foot .circle .timeblock .num9 {
+  background-position: 0px -216px;
+}

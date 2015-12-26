@@ -1,0 +1,238 @@
+.opacity(@o){
+  opacity: @o;
+  -moz-opacity: @o;
+}
+
+html,body{
+  padding: 0;
+  margin:0;
+}
+
+.timeline{
+  font-family: "arial","微软雅黑";
+  position: relative;
+  .timeline-title{
+    height: 95px;
+    .circle{
+      width: 83px;
+      height: 83px;
+      position: absolute;
+      top: 0;
+      left: 207px;
+      border: 6px solid rgba(0,0,0,0.15);
+      border-radius: 95px;
+      text-indent: 0;
+      text-align: center;
+      -webkit-transition: all 0.3s linear;
+      -moz-transition: all 0.3s linear;
+      -o-transition: all 0.3s linear;
+      transition: all 0.3s linear;
+    }
+    .timeblock{
+      margin-top:20px;
+      text-align: center;
+
+      .year{
+        color: #B31818;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .day{
+        font-size: 16px;
+        color: #6bc30d;
+        font-weight: bold;
+      }
+
+      span{
+        display:inline-block;
+        height:24px;
+        width:18px;
+        background:url(../images/date.png) no-repeat 0 0;
+      }
+      .numf{background-position:0px -48px;}
+      .nums{background-position:0px 0px;}
+      .numt{background-position:0px -24px;}
+      .numfo{background-position:0px -72px;}
+    }
+  }
+
+  .timeline-wrap{
+    height: 350px;
+    background-image: url("../images/vertical.png");
+    background-position: 250px 0;
+    background-repeat: repeat-y;
+    padding:20px 100px 0px 100px;
+    text-align: center;
+
+    .timeline-group{
+      padding: 0;
+      margin: 0;
+      height: 330px;
+      overflow: hidden;
+      li{
+        list-style: none;
+        height: 110px;
+        line-height: 110px;
+        position: relative;
+
+        .left{
+          position: absolute;
+          left: 0;
+          line-height: 55px;
+          .opacity(0.6);
+
+          .year{
+            color: #AEAEAE;
+            font-size: 12px;
+          }
+
+          .day{
+            color: #AEAEAE;
+            font-size: 18px;
+          }
+        }
+
+
+        .point{
+          position: absolute;
+          width: 55px;
+          height: 55px;
+          top:0;
+          background: url("../images/point.png") no-repeat 0 18px;
+          overflow: hidden;
+          left: 125px;
+
+          b{
+            height: 16px;
+            width: 16px;
+            background: #fff;
+            display: block;
+            margin: 17px 0 0 19px;
+            border-radius: 18px;
+            border: 2px solid #6bc30d;
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            -o-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+          }
+        }
+
+        .right{
+          position: absolute;
+          text-align: left;
+          width: 500px;
+          left: 200px;
+          -webkit-transition: all 1s linear;
+          .opacity(0.6);
+
+          .title{
+            height: 35px;
+            line-height: 35px;
+            a{
+              text-decoration: none;
+              font-size: 24px;
+              color: #747474;
+              cursor: pointer;
+            }
+          }
+
+
+
+          .content{
+            font-size: 14px;
+            color: #6e6e6e;
+            line-height: 20px;
+          }
+        }
+
+      }
+
+      li.active{
+
+        .point{
+          b{
+            border: 7px solid rgba(107,195,13,0.6);
+            margin: 12px 0px 0px 14px;
+            border-radius: 52px;
+          }
+        }
+
+        .left{
+          .opacity(1);
+          .year{
+            font-size: 13px;
+          }
+          .day{
+            font-size: 19px;
+          }
+        }
+
+        .right{
+          .opacity(1);
+          .title{
+            a{
+              color: #6bc30d;
+              font-size: 26px;
+              -webkit-transition: all 0.1s linear;
+              -moz-transition: all 0.1s linear;
+              -o-transition: all 0.1s linear;
+              transition: all 0.1s linear;
+            }
+          }
+          .content{
+            font-size: 16px;
+          }
+        }
+      }
+
+
+    }
+  }
+
+  .timeline-foot{
+    height: 72px;
+    .circle{
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      bottom: 0;
+      left: 218px;
+      border: 6px solid rgba(0,0,0,0.15);
+      border-radius: 95px;
+      text-indent: 0;
+      text-align: center;
+
+      .timeblock{
+        font-size: 0;
+        text-align: center;
+        margin-top: 18px;
+        span{
+          display:inline-block;
+          height:24px;
+          width:18px;
+          background:url(../images/date.png) no-repeat 0 0;
+          -webkit-transition: all 0.3s linear;
+          -moz-transition: all 0.3s linear;
+          -o-transition: all 0.3s linear;
+          transition: all 0.3s linear;
+        }
+        .num0{background-position:0px 0px;}
+        .num1{background-position:0px -24px;}
+        .num2{background-position:0px -48px;}
+        .num3{background-position:0px -72px;}
+        .num4{background-position:0px -96px;}
+        .num5{background-position:0px -120px;}
+        .num6{background-position:0px -144px;}
+        .num7{background-position:0px -168px;}
+        .num8{background-position:0px -192px;}
+        .num9{background-position:0px -216px;}
+      }
+    }
+
+  }
+}

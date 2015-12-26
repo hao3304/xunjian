@@ -1,0 +1,29 @@
+.page-route .custom tr {
+  background-color: #fff;
+}
+.page-route .arrow-bar {
+  visibility: hidden;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: #ccc;
+}
+.page-route .remove-bar {
+  visibility: hidden;
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  color: #ccc;
+}
+.page-route .list-group-item:hover .arrow-bar {
+  visibility: visible;
+}
+.page-route .list-group-item:hover .remove-bar {
+  visibility: visible;
+}
+.page-route .list-group-item:hover .remove-bar:hover span {
+  color: #ACD02F;
+}
+.page-route .list-group-item:hover .arrow-bar span:hover {
+  color: #ACD02F;
+}

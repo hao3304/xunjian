@@ -1,0 +1,161 @@
+<div class="container-fluid page-route" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+    <div class="row">
+        <div class="col-lg-8 col-md-8" STYLE="margin-bottom: 10px;">
+            <a class="btn btn-primary btn-sm" v-on="click:onAddRoute"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                添加路线
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4" v-show="selectRoute">
+            <a class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                添加区段
+            </a>
+        </div>
+        <div class="col-lg-8 col-md-4">
+            <table class="table custom table-bordered">
+                <thead>
+                <tr >
+                    <th>路线名称</th>
+                    <th>检查周期</th>
+                    <th>周期类型</th>
+                    <th>状态</th>
+                    <th>周期描述</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-repeat="l in list" v-on="click:onSelect(l)" v-class="active:l.FId==selectRoute"><td>{{l.FRoutName}}</td><td>{{l.FCycle}}</td><td>{{l.FCycleType | cycle_type}}</td><td>{{l.FStatus | state}}</td><td>{{l.FDescription}}</td><td>{{l.FRemark}}</td>
+                    <td><a href="javascript:;" v-on="click:onEditRoute(l)">编辑</a> <a href="javascript:;" v-on="click:onDelRoute(l.FId)">删除</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4 col-md-4" >
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{selectRouteName}}
+                </div>
+                <div class="panel-body timeline">
+                    <div class="list-group" v-style="styles">
+                        <a v-show="sections.length>0" v-repeat=" s in sections" v-on="click:doRoute(s)" class="list-group-item " >
+                            <h5 class="list-group-item-heading">{{s.sectionName}}
+                            </h5>
+                            <div class="remove-bar">
+                                <span v-on="click:onDelSection(s.FSectionId)" class="glyphicon glyphicon-remove"></span>
+                            </div>
+                            <div class="arrow-bar">
+                                <div><span v-on="click:changeUp(s.FSectionId,$index)" v-class="glyphicon-exclamation-sign:$index==0,glyphicon-arrow-up:$index!=0" class="glyphicon "></span></div>
+                                <div><span v-on="click:changeDown(s.FSectionId,$index)" v-class="glyphicon-exclamation-sign:$index==(sections.length-1),glyphicon-arrow-down:$index!=(sections.length-1)" class="glyphicon"></span></div>
+                            </div>
+                            <span class="number">{{$index+1}}</span>
+                        </a>
+                        <a v-show="sections.length==0" class="list-group-item">
+                            <h5 class="list-group-item-heading">请先选择路线</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="routeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加巡检路线</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">路线名称</label>
+                        <div class="col-sm-10">
+                            <input  type="text" v-model="route.routName"  class="form-control" placeholder="路线名称">
+                        </div>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">周期</label>
+                        <div class="col-sm-10">
+                            <input  type="number" v-model="route.cycle"  class="form-control" placeholder="周期">
+                        </div>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">周期类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" options="base.cycleType" v-model="route.cycleType">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">路线状态</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" v-model="route.status">
+                                <option value="0">停用</option>
+                                <option value="1">开启</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">周期描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="2" placeholder="周期描述" v-model="route.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input  type="text" v-model="route.remark"  class="form-control" placeholder="备注">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" v-on="click:onSubmitRoute">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >添加巡检区段</h4>
+            </div>
+            <div class="modal-body" style="max-height: 300px;overflow-y: auto;">
+
+                <table class="table custom table-bordered table-striped table-hover">
+                    <thead>
+                    <tr >
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>全称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-repeat="s in sectionList">
+                        <td>{{$index+1}}</td>
+                        <td>{{s.text}}</td>
+                        <td>{{s.fullname}}</td>
+                        <td>
+                            <!--<button v-on="click:onSelectSection(s.value)" class="btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-check"></span>
+                            添加</button>-->
+                            <input type="checkbox" value="{{s.value}}" v-attr="checked:_hasCheck(s.value)" v-on="change:onSelectChange" class="form-control">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<c-foot></c-foot>

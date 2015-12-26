@@ -1,0 +1,30 @@
+<div class="page-login">
+    <div class="page-section">
+        <h1 class="login-title" >
+            水电站巡视检查管理系统
+        </h1>
+        <div class="page-from">
+            <div class="form-input">
+                <div>
+                    <input type="text" v-model="logName" placeholder="请输入用户名" >
+                </div>
+                <div>
+                    <input type="password" v-model="logPass"  placeholder="请输入密码">
+                    <span v-show="isWarn" class="label-warning warn-label">用户名或密码错误</span>
+                </div>
+                <div class="form-btn">
+                    <input type="button" v-on="click:onLogin"  value="登录">
+                    <label><input type="checkbox"> 记住账号</label>
+                    <span>忘记密码？</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="progress">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  v-style="width:progress">
+        </div>
+    </div>
+</div>
+

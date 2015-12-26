@@ -1,0 +1,26 @@
+.shadow-container {
+  background-color: #E9EFEF;
+  border: 1px solid #D5DBDD;
+  border-radius: 5px;
+  box-shadow: inset  1px 1px 1px #fff;
+  min-height: 400px;
+}
+.page-position {
+  padding-top: 10px;
+  background-color: #fff;
+}
+.page-position .left-tree .ztree {
+  background-color: #E9EFEF;
+  border: 1px solid #D5DBDD;
+  border-radius: 5px;
+  box-shadow: inset  1px 1px 1px #fff;
+  min-height: 400px;
+}
+.page-position .right-container {
+  background-color: #E9EFEF;
+  border: 1px solid #D5DBDD;
+  border-radius: 5px;
+  box-shadow: inset  1px 1px 1px #fff;
+  min-height: 400px;
+  padding-top: 10px;
+}

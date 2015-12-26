@@ -1,0 +1,13 @@
+.page-object .arrow-bar {
+  visibility: hidden;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: #ccc;
+}
+.page-object .object-row:hover .arrow-bar {
+  visibility: visible;
+}
+.page-object .object-row:hover .arrow-bar span:hover {
+  color: #ACD02F;
+}

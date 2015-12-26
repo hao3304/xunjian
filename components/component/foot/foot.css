@@ -1,0 +1,19 @@
+.footer {
+  padding-top: 20px;
+  border-top: 1px dashed #cdcdcd;
+  margin: 15px 10px 0px 10px;
+  text-align: center;
+  color: #666;
+}
+.footer .foot-nav a {
+  padding: 0px 20px 0px 20px;
+  display: inline-block;
+  color: #666;
+}
+.footer .foot-p-con {
+  padding-top: 15px;
+}
+.footer .foot-p-con .font-style01 {
+  display: inline-block;
+  padding-left: 30px;
+}

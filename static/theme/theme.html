@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+</head>
+<body>
+<div class="timeline" ms-controller="timeline">
+    <div class="timeline-title">
+        <div class="circle">
+            <div thisyear="2013" class="timeblock">
+                <div class="year">{{currentYear}}</div>
+                <div class="day">{{currentDay}}</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="timeline-wrap">
+        <ul class="timeline-group">
+            <li ms-repeat="detailList" ms-attr-data-time="el.FOperateTime">
+                <div class="left">
+                    <label class="year">{{el.FOperateTime | getYear}}</label>
+                    <label class="day">{{el.FOperateTime | getDay}}</label>
+                </div>
+                <div class="point">
+                    <b></b>
+                </div>
+                <div class="right">
+                    <div class="title">
+                        <a href="#">{{el.sectionName}}</a>
+                    </div>
+                    <div class="content">
+                        {{el.contentName}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="timeline-foot">
+        <div class="circle">
+            <div thisyear="2013" class="timeblock">
+                <span ms-attr-class="num2"></span>
+                <span ms-attr-class="num1"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script src="avalon.js"></script>
+<script src="app.js"></script>
