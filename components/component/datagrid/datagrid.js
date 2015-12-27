@@ -3,42 +3,45 @@
  */
 
 var Vue = require("component_modules/vue.js");
+var filter = require("component/filter/filter.js");
 
-module.exports = Vue.component("c-pager",{
+module.exports = Vue.component("c-datagrid",{
     template:__inline("datagrid.html"),
-    props:["count","limit","page"],
+    props:["options"],
     data: function () {
-    },
-    watch:{
+        return {
 
-
-    },
-    computed:{
-      "lens": function () {
-          return 5
-      }
+        }
     },
     methods:{
-        toPage: function (e) {
-            this.page = parseInt(e.target.innerHTML)-1;
+        render:function(){
+            this.autoWidth();
         },
-        nextPage: function (e) {
-            var t = parseInt(((this.count-1)/this.limit));
-            if(this.page < t){
-                this.page +=1;
+        autoWidth:function(){
+            var tds = $(".c-datagrid .c-datagrid-header .table tr:first th");
+            for (var i = 0; i < tds.length; i++) {
+                var w = $(tds[i]).width();
+                $(".c-datagrid-row-"+this.options.columns[i].field).width(w);
+                $(".c-datagrid-th-"+this.options.columns[i].field).width(w);
             }
         },
-        prevPage: function () {
-            if(this.page > 0){
-                this.page -=1;
-            }
-        },
-        isShow: function ($index) {
-            if(this.page <6){
-                return $index<10;
+        getText:function(val,o){
+            if(o.filter){
+                return o.filter(val);
             }else{
-                return this.page < $index+6 && this.page > $index-5;
+                return val;
             }
         }
+    },
+    watch:{
+        "options.data":function(){
+            var self = this;
+            Vue.nextTick(function(){
+                self.render();
+            })
+        }
+    },
+    ready:function(){
+        this.render();
     }
 });

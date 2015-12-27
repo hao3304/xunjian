@@ -5,6 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
 var Router = require("component_modules/director.js").Router;
+var grid = require("datagrid/datagrid.js");
 
 module.exports = Vue.extend({
    inherit:true,

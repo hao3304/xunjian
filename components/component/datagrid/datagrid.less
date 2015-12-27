@@ -1,6 +1,22 @@
-.c-pager{
-  text-align: center;
-  .pagination{
-    margin: 0;
+.c-datagrid{
+  background-color: #fff;
+
+  ::-webkit-scrollbar-track:vertical{
+    background-color: #F1F1F1 !important;
+  }
+
+  table{table-layout: fixed;}
+  th,td{word-wrap:break-word;overflow:hidden/* for ff2 */}
+
+  .c-datagrid-header{
+    .table{
+      margin-bottom: 0;
+    }
+  }
+
+  .c-datagrid-body{
+    .table{
+      margin-bottom: 0;
+    }
   }
 }

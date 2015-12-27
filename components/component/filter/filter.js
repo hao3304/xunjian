@@ -45,6 +45,20 @@ Vue.filter("status", function (type) {
     }
 });
 
+function getStatus(type){
+    switch (type){
+        case 0:{
+            return "正常";
+        }break;
+        case 1:{
+            return "异常";
+        }break;
+        case 2:{
+            return "良好"
+        }break;
+    }
+}
+
 Vue.filter("project_state", function (type) {
     switch (type){
         case 0:{
@@ -124,5 +138,6 @@ Vue.filter("content_type", function (type) {
 });
 
 module.exports = {
-    tranDate:tranDate
+    tranDate:tranDate,
+    getStatus:getStatus
 }

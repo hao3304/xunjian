@@ -6,6 +6,7 @@ var Vue = require("component_modules/vue.js");
 var foot = require("foot/foot.js");
 var Service = require("main/service.js");
 var filter = require("component/filter/filter.js");
+var datagrid = require("datagrid/datagrid.js");
 
 
 module.exports = Vue.extend({
@@ -14,7 +15,18 @@ module.exports = Vue.extend({
       return {
          Recent:[],
          Task:[],
-         Files:[]
+         Files:[],
+         "datagrid_record":{
+            columns:[
+               {"title":"检查日期",field:"FStartTime",filter:filter.tranDate},
+               {"title":"持续时间",field:"FFinishiTime",filter:filter.tranDate},
+               {"title":"路线",field:"checkPersonName"},
+               {"title":"巡检人",field:"FCheckPerson"},
+               {"title":"评价",field:"FCheckStatus",filter:filter.getStatus}
+            ],
+            data:[],
+            height:"200px"
+         }
       }
    },
    template:__inline("home.html"),
@@ -22,7 +34,7 @@ module.exports = Vue.extend({
       renderRecent: function () {
          var self = this;
          Service.getRecentRecordList(10,function (rep) {
-            self.Recent = rep;
+            self.datagrid_record.data = rep;
          })
       },
       renderTask: function () {

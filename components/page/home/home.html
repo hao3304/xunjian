@@ -38,8 +38,8 @@
                         <div class="panel-heading">
                             最新巡检记录
                         </div>
-                        <div class="panel-body" style="padding: 0;height: 205px;overflow-y: auto">
-                            <table class="table table-bordered table-striped table-hover">
+                        <div class="panel-body" style="padding: 0;height: 205px;overflow: hidden">
+                           <!-- <table class="table table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>检查日期</th>
@@ -52,7 +52,8 @@
                                 <tbody>
                                 <tr v-repeat="r in Recent"><td>{{r.FStartTime | datetime}}至{{r.FFinishiTime | datetime}}</td><td>0</td><td>{{r.routName}}</td><td>{{r.FCheckPerson}}</td><td>{{r.FCheckStatus|status}}</td></tr>
                                 </tbody>
-                            </table>
+                            </table>-->
+                            <c-datagrid options="{{datagrid_record}}"></c-datagrid>
 
                         </div>
                     </div>
