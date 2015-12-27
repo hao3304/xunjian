@@ -1,3 +1,12 @@
+.page-type .panel {
+  border-radius: 0;
+}
+.page-type .col-md-3 {
+  padding-right: 0;
+}
+.page-type .col-md-9 {
+  padding-left: 0;
+}
 .page-type .list-group-item:hover .type-edit-bar {
   visibility: visible;
 }

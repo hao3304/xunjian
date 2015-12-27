@@ -1,67 +1,74 @@
-<div class="container-fluid page-marker" v-style="min-height:contentHeight+'px'">
-    <div class="row">
-        <div class="col-lg-12">
-            <form class="form-inline" style="margin-bottom: 10px;">
-                <div class="form-group">
-                    <label>开始时间</label>
-                    <input type="text" id="beginDate" v-model="query.beginDate" class="form-control input-sm" placeholder="开始时间">
-                </div>
-                <div class="form-group">
-                    <label>至</label>
-                    <input type="text" id="endDate" v-model="query.endDate" class="form-control input-sm" placeholder="截止时间">
-                </div>
-                <div class="form-group">
-                    <label>&nbsp;&nbsp;审核状态</label>
-                    <select v-model="query.checkState" class="form-control input-sm" options="base.checkState">
-                        <option value="-1">全部状态</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary  btn-sm" v-on="click:onQuery">
-                    <span class="icon icon-search"  aria-hidden="true"></span>
-                    查询</button>
-                <button class="btn btn-warning  btn-sm"  v-on="click:onReset">
-                    <span class="icon icon-record" aria-hidden="true"></span>
-                    重置</button>
-                <a  class="btn btn-primary btn-sm pull-right " href="#addRecord" > <span class="icon icon-plus" aria-hidden="true"></span>
-                    添加
-                </a>
-            </form>
-            <table class="table  table-bordered table-striped table-hover ">
-                <thead>
-                <tr>
-                    <th>开始时间</th>
-                    <th>结束时间</th>
-                    <th>路线</th>
-                    <th>持续时间</th>
-                    <th>巡检人</th>
-                    <th>评价</th>
-                    <th>审核状态</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-repeat="r in records"><td>{{r.FStartTime | datetime}}</td><td>{{r.FFinishiTime | datetime}}</td><td>{{r.routName}}</td><td>{{Continued(r)}}</td><td>{{r.FInspectPerson}}</td><td>{{r.FExcuteStatus | status}}</td><td>{{r.FCheckStatus | check_state}}</td><td><a href="javascript:;" v-on="click:onDelRecord(r.FId)">删除</a><!-- <a href="javascript:;"  v-if="r.FCheckStatus == 0" v-on="click:onCheck(r.FId)">审核</a> --> <a href="#record/{{r.FId}}">查看</a></td></tr>
-                 </tbody>
-            </table>
-            <!--<c-pager></c-pager>-->
-        </div>
+<div class="panel">
+    <div class="panel-heading">
+        <a  class="btn btn-primary btn-sm  " href="#addRecord" > <span class="icon icon-plus" aria-hidden="true"></span>
+            添加
+        </a>
     </div>
+    <div class="panel-body"  v-style="min-height:contentHeight+'px'">
+        <div class="input-group col-md-8 col-md-offset-2" style="margin-bottom: 10px">
+            <span class="input-group-addon">开始时间</span>
+            <input type="text" id="beginDate" v-model="query.beginDate" class="form-control " placeholder="开始时间">
 
-    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">任务审核</h4>
-                </div>
-                <div class="modal-body">
-                    <button type="button" class="btn btn-primary">审核通过</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            <span class="input-group-addon">至</span>
+            <input type="text" id="endDate" v-model="query.endDate" class="form-control " placeholder="截止时间">
+
+            <span class="input-group-addon">审核状态</span>
+            <select v-model="query.checkState" class="form-control " options="base.checkState">
+                <option value="-1">全部状态</option>
+            </select>
+            <span class="input-group-btn">
+               <button class="btn btn-primary  " v-on="click:onQuery">
+                   <span class="icon icon-search"  aria-hidden="true"></span>
+                   查询</button>
+            <button class="btn btn-warning  "  v-on="click:onReset">
+                <span class="icon icon-record" aria-hidden="true"></span>
+                重置</button>
+            </span>
+        </div>
+
+        <table class="table  table-bordered table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>路线</th>
+                <th>持续时间</th>
+                <th>巡检人</th>
+                <th>评价</th>
+                <th>审核状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-repeat="r in records">
+                <td>{{r.FStartTime | datetime}}</td>
+                <td>{{r.FFinishiTime | datetime}}</td>
+                <td>{{r.routName}}</td>
+                <td>{{Continued(r)}}</td>
+                <td>{{r.FInspectPerson}}</td>
+                <td>{{r.FExcuteStatus | status}}</td>
+                <td> <span class="label"  v-class="label-success:r.FCheckStatus==1">{{r.FCheckStatus | check_state}}</span> </td>
+                <td><a href="javascript:;" v-on="click:onDelRecord(r.FId)">删除</a><!-- <a href="javascript:;"  v-if="r.FCheckStatus == 0" v-on="click:onCheck(r.FId)">审核</a> --> <a href="#record/{{r.FId}}">查看</a></td></tr>
+            </tbody>
+        </table>
+        <!--<c-pager></c-pager>-->
+
+        <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">任务审核</h4>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-primary">审核通过</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
 </div>
 <c-foot></c-foot>

@@ -1,52 +1,51 @@
-<div class="container-fluid page-target" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+<div class="container-fluid page-target" v-style="min-height:contentHeight+'px'" >
     <div class="row">
 
         <div class="col-lg-3 col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading" v-on="click:clearSelect">
-                    巡检类型
+            <div class="panel ">
+                <div class="panel-heading " v-on="click:clearSelect">
+                   <label>巡检类型</label>
                 </div>
                 <div class="panel-body" style="padding: 0">
-                    <div class="list-group" v-style="styles">
-                        <a v-repeat="t in typeList" v-class="active:selectType==t.FId" class="list-group-item" v-on="click:onSelectType(t.FId)">
-                            <h5 class="list-group-item-heading">
-                                {{t.FCategoryName}}
-                            </h5>
-                        </a>
-                    </div>
+                    <div class="ztree" id="tree"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-9 col-md-9" >
-                <a class="btn btn-primary btn-sm" style="margin-bottom: 10px;" v-on="click:onAdd" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                    添加
-                </a>
-            <div v-style="styles">
-                <table class="table custom table-bordered table-striped table-hover" >
-                    <thead>
-                    <tr>
-                        <th>对象名</th>
-                        <th>对象全名</th>
-                        <th>巡检类型</th>
-                        <th>频次</th>
-                        <th>频次类型</th>
-                        <th>巡检状态</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                    <tr v-repeat="l in filterList" >
-                        <td>{{l.FObjectName}}</td>
-                        <td>{{l.FObjectFullName}}</td>
-                        <td>{{l.FcategoryName}}</td>
-                        <td>{{l.FInspectCycle}}</td>
-                        <td>{{l.FCycleType | cycle_type}}</td>
-                        <td>{{l.FInspectstatus | status}}</td>
-                        <td>{{l.FRemark}}</td><td><a href="javascript:;" v-on="click:onEditTarget(l)">编辑</a> <a href="javascript:;" v-on="click:onDelTarget(l.FId)">删除</a></td></tr>
-                    </tbody>
-                </table>
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-primary btn-sm"  v-on="click:onAdd" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <table class="table  table-bordered table-striped table-hover" >
+                        <thead>
+                        <tr>
+                            <th>对象名</th>
+                            <th width="220px">对象全名</th>
+                            <th width="200px">巡检类型</th>
+                            <th>频次</th>
+                            <th>频次类型</th>
+                            <th>巡检状态</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr v-repeat="l in filterList" >
+                            <td>{{l.FObjectName}}</td>
+                            <td>{{l.FObjectFullName}}</td>
+                            <td>{{l.FcategoryName}}</td>
+                            <td>{{l.FInspectCycle}}</td>
+                            <td>{{l.FCycleType | cycle_type}}</td>
+                            <td>{{l.FInspectstatus | status}}</td>
+                            <td>{{l.FRemark}}</td><td><a href="javascript:;" v-on="click:onEditTarget(l)">编辑</a> <a href="javascript:;" v-on="click:onDelTarget(l.FId)">删除</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
             <!--<c-pager></c-pager>-->
         </div>
     </div>
@@ -82,7 +81,7 @@
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">周期类型</label>
                             <div class="col-sm-10">
-                                <select class="form-control" v-model="target.cycleType" options="base.cycleType">
+                                <select class="form-control" v-model="target.cycleType" options="base.cycleType" >
                                     <option>请选择</option>
                                 </select>
                             </div>
@@ -91,7 +90,7 @@
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">巡检类型</label>
                             <div class="col-sm-10">
-                                <select class="form-control" v-model="target.categoryId" options="base.categoryList">
+                                <select class="form-control" v-model="target.categoryId" options="base.categoryList" v-attr="disabled:selectType!=''">
                                     <option>请选择</option>
                                 </select>
                             </div>
@@ -122,4 +121,6 @@
 
 
 </div>
+
+
 <c-foot></c-foot>

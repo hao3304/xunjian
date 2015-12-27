@@ -6,3 +6,12 @@
   width: 20px;
   background-color: #B6D5E2;
 }
+.page-section .col-md-3 {
+  padding-left: 0;
+}
+.page-section .col-md-9 {
+  padding-right: 0;
+}
+.page-section .panel {
+  border-radius: 0;
+}

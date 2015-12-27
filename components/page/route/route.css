@@ -1,6 +1,15 @@
 .page-route .custom tr {
   background-color: #fff;
 }
+.page-route .col-md-8 {
+  padding-right: 0;
+}
+.page-route .col-md-4 {
+  padding-left: 0;
+}
+.page-route .panel {
+  border-radius: 0;
+}
 .page-route .arrow-bar {
   visibility: hidden;
   position: absolute;
@@ -26,4 +35,13 @@
 }
 .page-route .list-group-item:hover .arrow-bar span:hover {
   color: #ACD02F;
+}
+.page-route .timeline-end {
+  display: inline-block;
+  position: absolute;
+  left: 20px;
+  height: 10px;
+  width: 20px;
+  margin-top: -10px;
+  background-color: #AFDCF8;
 }

@@ -32,8 +32,7 @@ module.exports = Vue.extend({
          list:[],
          filterList:[],
          selectType:"",
-         target:model,
-         typeList:[]
+         target:model
       }
    },
    methods:{
@@ -53,13 +52,38 @@ module.exports = Vue.extend({
             self.list = rep;
             self.filterList = rep;
             self.loading = false;
+            if(self.selectType){
+               self.filter(self.selectType);
+            }
          })
       },
       getTypeList: function () {
          var self = this;
          Service.GetInspectCategoryList({}, function (rep) {
-            self.typeList = rep;
+            var tree = {id:0,name:"全部类型",open:true,children:[]};
+            if(rep.length > 0){
+              for(var i=0;i<rep.length;i++){
+                 tree.children.push({id:rep[i].FId,name:rep[i].FCategoryName});
+              }
+            }
+
+            self.renderTree(tree);
+
          })
+      },
+      renderTree: function (data) {
+         var self = this;
+         $.fn.zTree.init($("#tree"), {
+            callback:{
+               onClick: function (e,type,node) {
+                  if(node.id ==0){
+                     self.clearSelect();
+                  }else{
+                     self.onSelectType(node.id);
+                  }
+               }
+            }
+         }, data);
       },
       onDelTarget: function (id) {
          var self = this;
@@ -125,7 +149,7 @@ module.exports = Vue.extend({
          this.target.majorId  = 0;
          this.target.inspectCycle  = "";
          this.target.cycleType  = "";
-         this.target.categoryId  = "";
+         this.target.categoryId  = this.selectType;
          this.target.inspectStatus  = "";
          this.target.remark  = "";
          this._showModal();
@@ -135,21 +159,25 @@ module.exports = Vue.extend({
       },
       _showModal: function () {
          $('#targetModal').modal('show')
-      }
-   },
-   watch:{
-     "selectType": function (v) {
-        if(v){
-           var lst =[];
-           for(var i=0;i<this.list.length;i++){
+      },
+      filter: function (v) {
+         if(v){
+            var lst =[];
+            for(var i=0;i<this.list.length;i++){
                if(this.list[i].FCategoryId == v){
                   lst.push(this.list[i]);
                }
-           }
-           this.filterList = lst;
-        }
-
-     } 
+            }
+            this.filterList = lst;
+         }else{
+            this.filterList = this.list;
+         }
+      }
+   },
+   watch:{
+      "selectType": function (v) {
+         this.filter(v);
+      }
    },
    ready: function () {
       this.render();

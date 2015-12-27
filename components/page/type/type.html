@@ -1,8 +1,8 @@
-<div class="container-fluid page-type" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+<div class="container-fluid page-type" v-style="min-height:contentHeight+'px'" >
     <div class="row">
 
         <div class="col-lg-3 col-md-3">
-            <div class="panel panel-primary">
+            <div class="panel">
                 <div class="panel-heading">
                     <a class="btn btn-primary btn-sm" v-on="click:onAddType"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
                         添加类型
@@ -24,40 +24,45 @@
             </div>
         </div>
         <div class="col-lg-9 col-md-9">
-            <div style="margin-bottom: 10px;">
-                <a v-class="disabled:!selectType" class="btn btn-primary btn-sm " v-on="click:onAddContent"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                    添加内容
-                </a>
+            <div class="panel ">
+                <div class="panel-heading">
+                    <a v-class="disabled:!selectType" class="btn btn-primary btn-sm " v-on="click:onAddContent"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加内容
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <table class="table  table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>巡检标准</th>
+                            <th>巡检方法</th>
+                            <th>巡检内容名称</th>
+                            <th>巡检内容成果最大值</th>
+                            <th>巡检内容成果最小值</th>
+                            <th>巡检内容类型</th>
+                            <th>检查默认值</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-repeat="c in contentList">
+                            <td>{{c.standardName}}</td>
+                            <td>{{c.methoddName}}</td>
+                            <td>{{c.FContentName}}</td>
+                            <td>{{c.FContentMax==0?'-':c.FContentMax}}</td>
+                            <td>{{c.FContentMin==0?'-':c.FContentMin==0}}</td>
+                            <td>{{c.FContentType | content_type}}</td>
+                            <td>{{c.FContentDefault}}</td>
+                            <td>
+                                <a href="javascript:;" v-on="click:onEditContent(c)">编辑</a>
+                                <a v-on="click:onDelContent(c.FId)" href="javascript:;">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <table class="table custom table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>巡检标准</th>
-                    <th>巡检方法</th>
-                    <th>巡检内容名称</th>
-                    <th>巡检内容成果最大值</th>
-                    <th>巡检内容成果最小值</th>
-                    <th>巡检内容类型</th>
-                    <th>检查默认值</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-repeat="c in contentList">
-                    <td>{{c.standardName}}</td>
-                    <td>{{c.methoddName}}</td>
-                    <td>{{c.FContentName}}</td>
-                    <td>{{c.FContentMax==0?'-':c.FContentMax}}</td>
-                    <td>{{c.FContentMin==0?'-':c.FContentMin==0}}</td>
-                    <td>{{c.FContentType | content_type}}</td>
-                    <td>{{c.FContentDefault}}</td>
-                    <td>
-                        <a href="javascript:;" v-on="click:onEditContent(c)">编辑</a>
-                        <a v-on="click:onDelContent(c.FId)" href="javascript:;">删除</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
         </div>
     </div>
 

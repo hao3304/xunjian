@@ -1,46 +1,49 @@
-<div class="container-fluid page-section" v-style="min-height:contentHeight+'px'" style="padding-top: 10px;background-color: #fff">
+<div class="container-fluid page-section" v-style="min-height:contentHeight+'px'" style="background-color: #fff">
     <div class="row">
         <div class="col-lg-9 col-md-9 ">
-            <a class="btn btn-primary btn-sm" v-on="click:onAddSection" style="margin-bottom: 10px" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                添加
-            </a>
-            <div v-style="styles">
-                <table class="table custom table-bordered table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th>区段名称</th>
-                        <th>区段全称</th>
-                        <th>端点A编码</th>
-                        <th>端点B编码</th>
-                        <th>创建日期</th>
-                        <th>备注</th>
-                        <th width="100">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-repeat="l in list" v-on="click:onSelectSection(l.FId)" v-class="active:l.FId == selectSection">
-                        <td>{{l.FDescription}}</td>
-                        <td>{{l.FSectionFullName}}</td>
-                        <td>{{l.FRadioA}}</td>
-                        <td>{{l.FRadioB}}</td>
-                        <td>{{l.FCreateDate | datetime}}</td>
-                        <td>{{l.FRemark}}</td>
-                        <td>
-                            <a href="javascript:;" v-on="click:onEditSection(l)">编辑</a>
-                            <a v-on="click:onDelSection(l.FId)" href="javascript:;">删除</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加
+                    </a>
+                </div>
+                <div class="panel-body" style="padding: 0;">
+                    <table  class="table datatable table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>区段名称</th>
+                            <th>区段全称</th>
+                            <th>端点A编码</th>
+                            <th>端点B编码</th>
+                            <th>创建日期</th>
+                            <th>备注</th>
+                            <th width="100">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-repeat="l in list" v-on="click:onSelectSection(l.FId)" v-class="active:l.FId == selectSection">
+                            <td>{{l.FDescription}}</td>
+                            <td>{{l.FSectionFullName}}</td>
+                            <td>{{l.FRadioA}}</td>
+                            <td>{{l.FRadioB}}</td>
+                            <td>{{l.FCreateDate | datetime}}</td>
+                            <td>{{l.FRemark}}</td>
+                            <td>
+                                <a href="javascript:;" v-on="click:onEditSection(l)">编辑</a>
+                                <a v-on="click:onDelSection(l.FId)" href="javascript:;">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-3">
-            <a class="btn btn-primary btn-sm " v-class="disabled:!selectSection" v-on="click:onAddObj" style="margin-bottom: 10px" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                添加对象
-            </a>
-            <div class="panel panel-primary">
+            <div class="panel ">
                 <div class="panel-heading">
-                    对象列表
+                    <a class="btn btn-sm btn-primary" v-class="disabled:!selectSection" v-on="click:onAddObj" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加对象
+                    </a>
                 </div>
                 <div class="panel-body timeline"  v-style="styles">
                     <div class="list-group" v-if="sectionObjList.length>0">

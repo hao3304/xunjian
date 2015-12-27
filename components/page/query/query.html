@@ -1,68 +1,72 @@
-<div class="container-fluid page-marker" v-style="min-height:contentHeight+'px'">
+<div class="container-fluid page-query" v-style="min-height:contentHeight+'px'">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="col-sm-12">
-                <select class="form-control input-sm" v-model="type">
-                    <option value="route">
-                        按巡检路线导航
-                    </option>
-                    <option value="position">
-                        按巡检部位导航
-                    </option>
-                    <option value="type">
-                        按巡检类型导航
-                    </option>
-
-                </select>
-            </div>
-            <div class="col-sm-12">
-                <div class="ztree" id="tree"></div>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="form-inline" style="margin-bottom: 10px;">
-                <div class="form-group">
-                    <label >开始时间</label>
-                    <input type="text" id="beginTime" v-model="query.beginTime" class="form-control input-sm" placeholder="开始时间">
-                </div>
-                <div class="form-group">
-                    <label >至</label>
-                    <input type="text" id="endTime" v-model="query.endTime" class="form-control input-sm" placeholder="截止时间" >
-                </div>
-                <div class="form-group">
-                    <label >&nbsp;&nbsp;状态</label>
-                    <select class="form-control input-sm" options="base.status" v-model="query.checkStatus" >
+        <div class="col-lg-3 col-md-3">
+            <div class="panel">
+                <div class="panel-heading">
+                    <select class="form-control " v-model="type">
+                        <option value="route">
+                            按巡检路线导航
+                        </option>
+                        <option value="position">
+                            按巡检部位导航
+                        </option>
+                        <option value="type">
+                            按巡检类型导航
+                        </option>
                     </select>
                 </div>
-                <button  class="btn btn-primary  btn-sm" v-on="click:onQuery">查询</button>
-                <button  class="btn btn-warning  btn-sm" v-on="click:onReset">重置</button>
+                <div class="panel-body">
+                    <div class="ztree" id="tree"></div>
+                </div>
             </div>
-         <div v-style="styles">
-             <table class="table custom table-bordered table-striped table-hover">
-                 <thead>
-                 <tr>
-                     <th>检查时间</th>
-                     <th>巡检对象</th>
-                     <th>检查内容</th>
-                     <th>结果状态</th>
-                     <th>结果描述</th>
-                     <th>附件</th>
-                 </tr>
-                 </thead>
-                 <tbody>
-                 <tr v-repeat="l in list">
-                     <td>{{l.FOperateTime | datetime}}</td>
-                     <td>{{l.objectName}}</td>
-                     <td>{{l.FContentValue}}</td>
-                     <td>{{l.FContentStatus | status}}</td>
-                     <td>{{l.contentName}}
-                         <span class="icon icon-pencil pull-right" v-show="l.FInputType==0"></span><span class="icon icon-phone pull-right" v-show="l.FInputType==1"></span>
-                     </td>
-                     <td><a v-on="click:getPic(l.FId)" href="javascript:;"   v-if="l.fileCount>0">查看照片</a></td></tr>
-                 </tbody>
-             </table>
-         </div>
-            <!--<c-pager></c-pager>-->
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="input-group col-md-10">
+                        <label class="input-group-addon">开始时间</label>
+                        <input type="text" id="beginTime" v-model="query.beginTime" class="form-control " placeholder="开始时间">
+                        <label class="input-group-addon">至</label>
+                        <input type="text" id="endTime" v-model="query.endTime" class="form-control " placeholder="截止时间" >
+                        <label class="input-group-addon" >&nbsp;&nbsp;状态</label>
+                        <select class="form-control " options="base.status" v-model="query.checkStatus" >
+                        </select>
+                <span class="input-group-btn">
+                                 <button  class="btn btn-primary  " v-on="click:onQuery">查询</button>
+                <button  class="btn btn-warning  " v-on="click:onReset">重置</button>
+                </span>
+
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <table style="height: 300px"  class="table datatable table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>检查时间</th>
+                                <th>巡检对象</th>
+                                <th>检查内容</th>
+                                <th>结果状态</th>
+                                <th>结果描述</th>
+                                <th>附件</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-repeat="l in list">
+                                <td>{{l.FOperateTime | datetime}}</td>
+                                <td>{{l.objectName}}</td>
+                                <td>{{l.FContentValue}}</td>
+                                <td>{{l.FContentStatus | status}}</td>
+                                <td>{{l.contentName}}
+                                    <span class="icon icon-pencil pull-right" v-show="l.FInputType==0"></span><span class="icon icon-phone pull-right" v-show="l.FInputType==1"></span>
+                                </td>
+                                <td><a v-on="click:getPic(l.FId)" href="javascript:;"   v-if="l.fileCount>0">查看照片</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

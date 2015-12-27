@@ -1,38 +1,39 @@
-<div class="container-fluid page-route" v-style="min-height:contentHeight+'px'" style="margin-top: 10px">
+<div class="container-fluid page-route" v-style="min-height:contentHeight+'px'">
     <div class="row">
-        <div class="col-lg-8 col-md-8" STYLE="margin-bottom: 10px;">
-            <a class="btn btn-primary btn-sm" v-on="click:onAddRoute"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                添加路线
-            </a>
-        </div>
-        <div class="col-lg-4 col-md-4" v-show="selectRoute">
-            <a class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
-                添加区段
-            </a>
-        </div>
-        <div class="col-lg-8 col-md-4">
-            <table class="table custom table-bordered">
-                <thead>
-                <tr >
-                    <th>路线名称</th>
-                    <th>检查周期</th>
-                    <th>周期类型</th>
-                    <th>状态</th>
-                    <th>周期描述</th>
-                    <th>备注</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-repeat="l in list" v-on="click:onSelect(l)" v-class="active:l.FId==selectRoute"><td>{{l.FRoutName}}</td><td>{{l.FCycle}}</td><td>{{l.FCycleType | cycle_type}}</td><td>{{l.FStatus | state}}</td><td>{{l.FDescription}}</td><td>{{l.FRemark}}</td>
-                    <td><a href="javascript:;" v-on="click:onEditRoute(l)">编辑</a> <a href="javascript:;" v-on="click:onDelRoute(l.FId)">删除</a></td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-4 col-md-4" >
-            <div class="panel panel-primary">
+        <div class="col-lg-8 col-md-8" >
+            <div class="panel">
                 <div class="panel-heading">
-                    {{selectRouteName}}
+                    <a class="btn btn-primary btn-sm" v-on="click:onAddRoute"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加路线
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr >
+                            <th>路线名称</th>
+                            <th>检查周期</th>
+                            <th>周期类型</th>
+                            <th>状态</th>
+                            <th>周期描述</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-repeat="l in list" v-on="click:onSelect(l)" v-class="active:l.FId==selectRoute"><td>{{l.FRoutName}}</td><td>{{l.FCycle}}</td><td>{{l.FCycleType | cycle_type}}</td><td>{{l.FStatus | state}}</td><td>{{l.FDescription}}</td><td>{{l.FRemark}}</td>
+                            <td><a href="javascript:;" v-on="click:onEditRoute(l)">编辑</a> <a href="javascript:;" v-on="click:onDelRoute(l.FId)">删除</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <a  v-class="disabled:!selectRoute" class="btn btn-primary btn-sm" v-on="click:onAddSection"  role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+                        添加区段
+                    </a>
                 </div>
                 <div class="panel-body timeline">
                     <div class="list-group" v-style="styles">
@@ -51,13 +52,14 @@
                         <a v-show="sections.length==0" class="list-group-item">
                             <h5 class="list-group-item-heading">请先选择路线</h5>
                         </a>
+                        <span v-show="sections.length!=0" class="timeline-end"></span>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="routeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -116,7 +118,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

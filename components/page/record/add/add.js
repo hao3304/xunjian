@@ -86,7 +86,6 @@ module.exports = Vue.extend({
                }
             }
          }
-         debugger
          data = lst;
          var target = data[0];
          data[0].rows = 1;

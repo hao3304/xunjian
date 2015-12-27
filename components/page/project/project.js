@@ -77,7 +77,7 @@ module.exports = Vue.extend({
       addPlan: function () {
          var self = this;
          this.loading = true;
-         this.plan = model;
+         this.plan.ChargePersonName = $("#ChargePerson")[0].selectedOptions[0].innerText;
          Service.AddInspectPlan(this.plan, function (rep) {
             self.loading = false;
             self._hideModal();
@@ -87,7 +87,7 @@ module.exports = Vue.extend({
       onEditPlan: function (p) {
          this.plan = {
             id: p.FId,
-            ChargePersonID:0,
+            ChargePersonID:p.FChargePersonID,
             ChargePersonName: p.FChargePersonName,
             startTime:filter.tranDate(p.FStartTime),
             endTime:filter.tranDate(p.FEndTime),
@@ -117,22 +117,16 @@ module.exports = Vue.extend({
       },
       onAdd: function () {
          this.plan.id ="";
-         this.plan.ChargePersonID=0;
+         this.plan.ChargePersonID= -1;
          this.plan.ChargePersonName="";
          this.plan.startTime="";
          this.plan.endTime="";
          this.plan.cycle="";
          this.plan.cycleType="";
          this.plan.routId="";
-         this.plan.status="";
+         this.plan.status= 1;
          this.plan.remark="";
          this._showModal();
-      },
-      onQuery: function () {
-
-      },
-      onReset: function () {
-
       },
       _hideModal: function () {
          $('#projectModal').modal('hide')
