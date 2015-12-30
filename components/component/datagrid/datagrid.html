@@ -14,8 +14,11 @@
         <table class="table table-striped table-bordered table-hover">
             <tbody>
             <tr v-repeat="d in options.data">
-                <td v-repeat="c in options.columns" class="c-datagrid-row-{{c.field}}">
-                    <div>{{getText(d[c.field],c)}}</div>
+                <td  v-repeat="c in options.columns"  class="c-datagrid-row-{{c.field}}">
+                    <div v-if="!c.type" v-html="getText(d[c.field],c)"></div>
+                    <div v-if="c.type=='edit'">
+                        <a href="javascript:;" v-repeat="b in c.buttons" v-show="b.filter(d)" v-on="click:onClick(b,d)">{{b.title}}</a>
+                    </div>
                 </td>
             </tr>
             </tbody>

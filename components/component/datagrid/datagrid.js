@@ -31,6 +31,11 @@ module.exports = Vue.component("c-datagrid",{
             }else{
                 return val;
             }
+        },
+        onClick: function (option,data) {
+            if(option.onClick){
+                option.onClick.call(this.$parent,data);
+            }
         }
     },
     watch:{

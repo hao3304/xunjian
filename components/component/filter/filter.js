@@ -62,13 +62,10 @@ function getStatus(type){
 Vue.filter("project_state", function (type) {
     switch (type){
         case 0:{
-            return "未执行";
+            return "关闭";
         }break;
         case 1:{
-            return "已完成";
-        }break;
-        case 2:{
-            return "已过期"
+            return "开启";
         }break;
     }
 });

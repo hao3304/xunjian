@@ -28,7 +28,29 @@ module.exports = Vue.extend({
          },
          list:[],
          objectType:"",
-         pics:[]
+         pics:[],
+         datagrid_query:{
+            columns:[
+               {"title":"检查时间",field:"FOperateTime",filter:filter.tranDate},
+               {"title":"巡检对象",field:"objectName"},
+               {"title":"检查内容",field:"FContentValue"},
+               {"title":"结果状态",field:"FContentStatus",filter:filter.getStatus},
+               {"title":"结果描述",field:"contentName"},
+               {"title":"附件",field:"fileCount",type:"edit",buttons:[
+                  {
+                     title:"查看照片",
+                     filter: function (o) {
+                        return o.fileCount>0;
+                     },
+                     onClick: function (o) {
+                        this.getPic(o.FId);
+                     }
+                  }
+               ]}
+            ],
+            data:[],
+            height:"300px"
+         }
       }
    },
    methods:{
@@ -97,7 +119,8 @@ module.exports = Vue.extend({
 
          Service.GetObjectDataList(this.tranParam(param), function (rep) {
             self.loading = false;
-            self.list = rep;
+            //self.list = rep;
+            self.datagrid_query.data = rep;
          })
       },
       GetLocationObjectDataList: function () {
@@ -114,7 +137,8 @@ module.exports = Vue.extend({
 
          Service.GetLocationObjectDataList(this.tranParam(param), function (rep) {
             self.loading = false;
-            self.list = rep;
+            //self.list = rep;
+            self.datagrid_query.data = rep;
          })
       },
       GetCategoryObjectDataList: function () {
@@ -129,7 +153,8 @@ module.exports = Vue.extend({
          }
          Service.GetCategoryObjectDataList(this.tranParam(param), function (rep) {
             self.loading = false;
-            self.list = rep;
+            //self.list = rep;
+            self.datagrid_query.data = rep;
          })
       },
       GetRoutObjectDataList: function () {
@@ -144,7 +169,8 @@ module.exports = Vue.extend({
          }
          Service.GetRoutObjectDataList(param, function (rep) {
             self.loading = false;
-            self.list = rep;
+            //self.list = rep;
+            self.datagrid_query.data = rep;
          })
       },
       tranParam: function (param) {
@@ -171,7 +197,8 @@ module.exports = Vue.extend({
 
          Service.GetSectionObjectDataList(param, function (rep) {
             self.loading = false;
-            self.list = rep;
+            //self.list = rep;
+            self.datagrid_query.data = rep;
          })
       },
       getData: function (e,type,node) {
@@ -212,6 +239,7 @@ module.exports = Vue.extend({
          this.onQuery();
       },
       getPic: function (v) {
+         debugger
          var self = this;
          this.loading = true;
          Service.getInspectObjectContentResultFileList(v, function (rep) {

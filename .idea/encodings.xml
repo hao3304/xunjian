@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/components/component/main/service.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/static/css/style.less" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/theme/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/static/theme/css/style.less" charset="UTF-8" />
   </component>
 </project>

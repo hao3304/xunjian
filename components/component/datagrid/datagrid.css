@@ -1,0 +1,20 @@
+.c-datagrid {
+  background-color: #fff;
+}
+.c-datagrid ::-webkit-scrollbar-track:vertical {
+  background-color: #F1F1F1 !important;
+}
+.c-datagrid table {
+  table-layout: fixed;
+}
+.c-datagrid th,
+.c-datagrid td {
+  word-wrap: break-word;
+  overflow: hidden /* for ff2 */;
+}
+.c-datagrid .c-datagrid-header .table {
+  margin-bottom: 0;
+}
+.c-datagrid .c-datagrid-body .table {
+  margin-bottom: 0;
+}

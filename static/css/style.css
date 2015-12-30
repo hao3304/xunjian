@@ -72,3 +72,7 @@ body {
   background-image: url("/static/images/version_dot.png");
   color: #fff;
 }
+.validator {
+  line-height: 32px;
+  padding: 0;
+}

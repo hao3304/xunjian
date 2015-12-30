@@ -139,7 +139,8 @@ module.exports = Vue.extend({
       validation: function () {
          return {
             remark: Check.check(this.plan.remark,"required"),
-            startTime: Check.check(this.plan.startTime,"datetime")
+            routId: Check.check(this.plan.routId,"plusinteger"),
+            cycleType: Check.check(this.plan.cycleType,"plusinteger")
          }
       },
       isValid: function () {

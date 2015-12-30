@@ -7,6 +7,7 @@ var foot = require("foot/foot.js");
 var pager = require("pager/pager.js");
 var filter = require("component/filter/filter.js");
 var Service = require("main/service.js");
+var Check = require("main/check.js");
 
 var model = {
    id:"",
@@ -169,6 +170,19 @@ module.exports = Vue.extend({
       },
       _showModal: function () {
          $('#taskModal').modal('show')
+      }
+   },
+   computed: {
+      validation: function () {
+         return {
+            routid: Check.check(this.task.routid,"plusinteger")
+         }
+      },
+      isValid: function () {
+         var validation = this.validation;
+         return Object.keys(validation).every(function (key) {
+            return validation[key]
+         })
       }
    },
    ready: function () {

@@ -54,134 +54,154 @@ $(function () {
         return month+"-"+day;
     }
 
+    avalon.filters.getStatus = function (type) {
+        switch (type){
+            case 0:{
+                return "正常";
+            }break;
+            case 1:{
+                return "异常";
+            }break;
+            case 2:{
+                return "良好"
+            }break;
+        }
+    };
+
+
+
+
     var vm = avalon.define({
         $id:"timeline",
         detailList:[],
-        footNum:0,
-        currentYear:"",
-        currentDay:"",
-        $computed:{
-            num1:{
-                get: function () {
-                    if(this.footNum < 10){
-                        return "num"+this.footNum;
-                    }else{
-                        return "num"+ this.footNum%10
-                    }
-                }
-            },
-            num2:{
-                get: function () {
-                    if(this.footNum < 10){
-                        return "num0";
-                    }else{
-                        return "num"+ parseInt(this.footNum/10)
-                    }
-                }
+        prefix:"http://221.12.173.124:8080/inspectservice/",
+        showDetail:false,
+        play:false,
+        picture:[],
+        detail:{
+            list:[]
+        },
+        onShowDetail: function (obj) {
+            vm.detail = obj;
+            vm.showDetail = true;
+            if(vm.play){
+                vm.onStopPlay();
             }
+        },
+        onCloseDetail: function () {
+            vm.showDetail = false;
+        },
+        onScrollBottom: function () {
+            app.onScrollBottom.call(app);
+        },
+        onScrollTop: function () {
+            app.onScrollTop.call(app);
+        },
+        onPlay: function () {
+            app.onPlay.call(app);
+        },
+        onStopPlay: function () {
+            app.onStopPlay.call(app)
+        },
+        getPic: function (el) {
+            $.getJSONP(prefix+"getInspectObjectContentResultFileList/"+el.FId, function (rep) {
+                el.picture = rep;
+            })
         }
     });
 
     avalon.scan();
 
-
     var app = {
-        options:{
-            itemHeight:110,
-            viewItem:3
-        },
-        ele:{
-            $target:$(".timeline-group"),
-            $items:$(".timeline-group").find("li")
-        },
         init: function (data) {
-            this.eventBind();
-            this.top = this.ele.$target.scrollTop();
-            this.maxScroll = this.options.itemHeight*data.length;
-            this.minScroll = 0;
+            this.$body = $("body"),
+                this.clientHeight = document.documentElement.clientHeight,
+                this.scrollHeight = $(document).height(),
+                this.scrollTop = document.body.scrollTop,
+                this.items = $(".timeline li"),
+                this.index = 0; /*播放游标*/
 
-            this.changeStyle();
-
-
-            this.getLink();
+            var self = this;
+            this.$body.on("mousewheel", function () {
+                if(vm.play){
+                    self.onStopPlay();
+                }
+            });
         },
         render: function () {
-            this.renderFooter();
             this.getData();
         },
         getData: function () {
             var self = this;
-            $.getJSONP(prefix+"getRecordById/10025", function (rep) {
-                vm.detailList = rep.recordResultContentList;
+            $.getJSONP(prefix+"getRecordById/"+this.GetQueryString("id"), function (rep) {
+                vm.detailList = self.tranData(rep);
                 avalon.nextTick(function () {
-                    self.init(rep.recordResultContentList);
+                    self.init();
                 })
             })
         },
-        eventBind: function () {
-            var self = this;
-            this.ele.$target.mousewheel($.proxy(this._scroll,this));
-        },
-        _scroll:function(event, delta) {
-            var d = Date.parse(new Date()),self = this;
-            var move = function () {
-
-                this.top += event.deltaY*this.options.itemHeight;
-                this.ele.$target.find("li:first").animate({
-                    "margin-top":this.top
-                },"fast","linear", function () {
-                    self.changeStyle();
-                });
-            };
-            console.log(this.maxScroll)
-            if(event.deltaY <0&&(Math.abs(this.top)+(this.options.itemHeight*this.options.viewItem))<this.maxScroll){
-                move.call(this);
-            }else if(event.deltaY > 0 && Math.abs(this.top )> this.minScroll){
-                move.call(this);
-            }
-        },
-        getViewItem: function () {
-            var lst = [],self = this;
-            var top = this.top,bottom = this.top - this.options.itemHeight * this.options.viewItem;
-            var marginTop = this.ele.$target.find("li:first")[0].style.marginTop;
-            this.ele.$target.find("li").each(function (index,ele) {
-                if(index*self.options.itemHeight < Math.abs(bottom) && index*self.options.itemHeight >= Math.abs(top)){
-                    lst.push(ele);
+        tranData: function (result) {
+            var data  = result.recordResultContentList, sectionList = [];
+            if(data.length > 1){
+                /*合并区段*/
+                var target = data[0];
+                data[0].rows = 1;
+                sectionList.push({id:data[0].sectionId,name:data[0].sectionName})
+                for(var i = 1;i<data.length;i++){
+                    data[i].picture = [];
+                    if(target.sectionId == data[i].sectionId){
+                        target.rows +=1;
+                    }else{
+                        target = data[i];
+                        target.rows = 1;
+                        sectionList.push({id:data[i].sectionId,name:data[i].sectionName})
+                    }
                 }
-            });
-            return lst;
-        },
-        changeStyle: function () {
-            var lis = this.getViewItem();
-            $(lis[0]).removeClass("active");
-            $(lis[1]).addClass("active");
-            $(lis[2]).removeClass("active");
-            this.ele.$target.trigger("changeView");
-        },
-        renderFooter: function () {
-            var self = this;
-            this.ele.$target.on("changeView", function () {
-                var lis = self.getViewItem();
-                vm.footNum = $(lis[lis.length-2]).nextAll().length-1;
+                /*合并对象*/
+                var t = data[0];
+                data[0].objrows = 1;
+                for(var i = 1;i<data.length;i++){
+                    if(t.FObjectId == data[i].FObjectId){
+                        t.objrows += 1;
+                    }else{
+                        t = data[i];
+                        t.objrows = 1;
+                    }
+                }
 
-                var str = $(lis[1]).data("time");
-                vm.currentYear = self.tranData(str,"year");
-                vm.currentDay = self.tranData(str,"day");
-            });
-        },
-        getLink: function () {
-            var head = document.getElementsByTagName('head')[0],
-                cssURL = 'css/style.css',
-                linkTag = document.createElement('link');
+                var dl = result.recordSecDetailList;
 
-            linkTag.id = 'dynamic-style';
-            linkTag.href = cssURL;
-            linkTag.setAttribute('rel','stylesheet');
-            linkTag.setAttribute('media','all');
-            linkTag.setAttribute('type','text/css');
-            head.appendChild(linkTag);
+                for(var i = 0;i<data.length;i++){
+                    data[i].CheckResult = "未现场检查";
+                    for(var d= 0;d < dl.length;d++){
+                        if(dl[d].FSectionId == data[i].sectionId){
+                            var beginstr = this.tranDate(dl[d].FBeginTime,"day");
+                            if(dl[d].FBeginInputType == 0){
+                                beginstr += "(手动)";
+                            }
+                            var endstr = this.tranDate(dl[d].FEndTime,"day");
+                            if(dl[d].FEndInputType == 0){
+                                endstr += "(手动)";
+                            }
+                            data[i].CheckResult = beginstr +"<br/>至<br/>" + endstr;
+                        }
+                    }
+                }
+            }
+
+            for (var i = 0; i < sectionList.length; i++) {
+                var section = sectionList[i];
+                section.list = [];
+                for (var j = 0; j < data.length; j++) {
+                    var obj = data[j];
+                    if(section.id == obj.sectionId){
+                        section.list.push(obj);
+                    }
+                }
+            }
+            return sectionList;
         },
-        tranData: function (str,type) {
+        tranDate: function (str,type) {
             var stamp = str.replace("/Date(","").replace("+0800)/","");
             var date = new Date(parseInt(stamp));
             var year = date.getFullYear(),
@@ -197,11 +217,66 @@ $(function () {
             if(type == "year") {
                 return year;
             }else if(type == "day"){
-                return month +"��" + day +"��";
+                return month +"月" + day +"日";
             }
+        },
+        onPlay: function () {
+            if(this.scrollHeight > this.clientHeight){
+                var self = this;
+                this.getIndex();
+                vm.play = true;
+                this.timer = setInterval(function(){
+                    var scroll =self.$body.scrollTop()+ self.items[self.index].scrollHeight+20;
+
+                    if(scroll > (self.scrollHeight -self.clientHeight) ){
+                        scroll = scroll- (self.scrollHeight -self.clientHeight);
+                        self.onStopPlay();
+                    }
+
+                    self.$body.animate({
+                        scrollTop:scroll
+                    });
+                    self.index +=1;
+
+                },2000)
+
+            }
+        },
+        onStopPlay: function () {
+            vm.play = false;
+            clearInterval(this.timer);
+        },
+        getIndex: function () { /*播放时计算在哪个位置*/
+            var h = 0,items = this.items;
+            for (var i = 0; i < items.length; i++) {
+                if(h >= document.body.scrollTop ){
+                    this.index = i;
+                    document.body.scrollTop = h;
+                    break;
+                }else{
+                    h += $(items[i]).height() + 20;
+                }
+            }
+        },
+        onScrollBottom: function () {
+            this.$body.animate({
+                scrollTop:$(document).height() - document.documentElement.clientHeight
+            });
+        },
+        onScrollTop: function () {
+            this.$body.animate({
+                scrollTop:0
+            });
+        },
+        GetQueryString:function(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
         }
 
     }
+
 
     return app.render();
 

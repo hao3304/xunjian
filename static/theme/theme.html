@@ -1,54 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title></title>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
-    <script src="js/jquery.mousewheel.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body>
-<div class="timeline" ms-controller="timeline">
-    <div class="timeline-title">
-        <div class="circle">
-            <div thisyear="2013" class="timeblock">
-                <div class="year">{{currentYear}}</div>
-                <div class="day">{{currentDay}}</div>
+<body style="background-color: #efefef"  ms-controller="timeline" ms-css-overflow="showDetail?'hidden':'auto'">
+<div class="timeline">
+    <ul>
+        <li ms-repeat="detailList" >
+            <div class="left">
+                <div class="section-name" ms-text="el.name">
+                </div>
             </div>
+            <div class="center" ms-text="$index+1">
 
-        </div>
-    </div>
-    <div class="timeline-wrap">
-        <ul class="timeline-group">
-            <li ms-repeat="detailList" ms-attr-data-time="el.FOperateTime">
-                <div class="left">
-                    <label class="year">{{el.FOperateTime | getYear}}</label>
-                    <label class="day">{{el.FOperateTime | getDay}}</label>
-                </div>
-                <div class="point">
-                    <b></b>
-                </div>
-                <div class="right">
-                    <div class="title">
-                        <a href="#">{{el.sectionName}}</a>
-                    </div>
-                    <div class="content">
-                        {{el.contentName}}
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="timeline-foot">
-        <div class="circle">
-            <div thisyear="2013" class="timeblock">
-                <span ms-attr-class="num2"></span>
-                <span ms-attr-class="num1"></span>
             </div>
-        </div>
+            <div class="right">
+                <div class="content" ms-click="onShowDetail(el)">
+                    <table>
+                        <tr ms-repeat="el.list">
+                            <td width="100px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
+                            <!--<td width="200px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: top;" ms-if="el.rows">{{el.sectionName}}</td>-->
+                            <td  width="150px"  ms-attr-rowspan="{{el.objrows}}" style="vertical-align: middle;" ms-if="el.objrows" ms-css-background="el.FContentStatus!=0?'red':''" ms-text="el.objectName"></td>
+                            <!--      <td ms-visible="showDetail" width="200px" >{{el.contentName}}</td>
+                                  <td ms-visible="showDetail" width="40px">{{el.FContentStatus | getStatus}}</td>
+                                  <td ms-visible="showDetail" width="100px"><a  ms-click="click:getPic(r.FId)" href="javascript:;" ms-if="el.fileCount>0">查看图片</a></td>
+                                  <td ms-visible="showDetail" ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
+                            -->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="nav-bar">
+    <div class="icons icons-arrow-up" ms-click="onScrollTop">
     </div>
-
+    <div class="icons icons-arrow-bofang" ms-if="!play" ms-click="onPlay">
+    </div>
+    <div class="icons icons-arrow-zanting" ms-if="play" ms-click="onStopPlay">
+    </div>
+    <div class="icons icons-arrow-down" ms-click="onScrollBottom">
+    </div>
 </div>
 
+<div ms-visible="showDetail" class="record-detail" >
+    <div class="header">巡检区段详情
+        <span class="close" ms-click="onCloseDetail"></span>
+    </div>
+    <div class="wrap">
+        <table ms-if="detail.list.length>0" class="table">
+            <thead>
+            <tr>
+                <th>巡检区段</th>
+                <th >巡检对象</th>
+                <th >检查内容</th>
+                <th width="100px">检查结果</th>
+                <th>结果描述</th>
+                <th >附件</th>
+                <th style="text-align: center">检查时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="detail.list">
+                <td ms-attr-rowspan="{{el.rows}}" style="vertical-align: top;" ms-if="el.rows">{{el.sectionName}}</td>
+                <td  ms-attr-rowspan="{{el.objrows}}" style="vertical-align: middle;" ms-if="el.objrows" >{{el.objectName}}</td>
+                <td  >{{el.contentName}}</td>
+                <td style="text-align: center" >{{el.FContentStatus | getStatus}}</td>
+                <td style="width: 120px">{{el.FContentValue}} <span class="icons icons-pencil pull-right" ms-visible="el.FInputType==0"></span><span class="icons icons-mobile pull-right" ms-visible="el.FInputType==1"></span></td>
+                <td >
+                    <a  ms-click="getPic(el)" href="javascript:;" ms-if="el.fileCount>0&&el.picture.length==0">查看附件{{el.picture}}</a>
+
+                    <a ms-repeat="el.picture" ms-text="'照片'+($index+1)" ms-attr-href="prefix+el.FFileRelativeAddress" target="_blank"> </a>
+                </td>
+                <td  ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
 <script src="avalon.js"></script>

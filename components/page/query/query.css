@@ -1,0 +1,13 @@
+.page-query .panel {
+  border-radius: 0;
+}
+.page-query .col-md-3 {
+  padding-right: 0;
+}
+.page-query .col-md-3 .panel-body {
+  overflow-x: auto;
+  min-height: 400px;
+}
+.page-query .col-md-9 {
+  padding-left: 0;
+}

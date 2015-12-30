@@ -41,29 +41,30 @@
                 </div>
                 <div class="panel-body">
                     <div>
-                        <table style="height: 300px"  class="table datatable table-bordered table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>检查时间</th>
-                                <th>巡检对象</th>
-                                <th>检查内容</th>
-                                <th>结果状态</th>
-                                <th>结果描述</th>
-                                <th>附件</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-repeat="l in list">
-                                <td>{{l.FOperateTime | datetime}}</td>
-                                <td>{{l.objectName}}</td>
-                                <td>{{l.FContentValue}}</td>
-                                <td>{{l.FContentStatus | status}}</td>
-                                <td>{{l.contentName}}
-                                    <span class="icon icon-pencil pull-right" v-show="l.FInputType==0"></span><span class="icon icon-phone pull-right" v-show="l.FInputType==1"></span>
-                                </td>
-                                <td><a v-on="click:getPic(l.FId)" href="javascript:;"   v-if="l.fileCount>0">查看照片</a></td></tr>
-                            </tbody>
-                        </table>
+                        <c-datagrid options="{{datagrid_query}}"></c-datagrid>
+                        <!--<table style="height: 300px"  class="table datatable table-bordered table-striped table-hover">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th>检查时间</th>-->
+                                <!--<th>巡检对象</th>-->
+                                <!--<th>检查内容</th>-->
+                                <!--<th>结果状态</th>-->
+                                <!--<th>结果描述</th>-->
+                                <!--<th>附件</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr v-repeat="l in list">-->
+                                <!--<td>{{l.FOperateTime | datetime}}</td>-->
+                                <!--<td>{{l.objectName}}</td>-->
+                                <!--<td>{{l.FContentValue}}</td>-->
+                                <!--<td>{{l.FContentStatus | status}}</td>-->
+                                <!--<td>{{l.contentName}}-->
+                                    <!--<span class="icon icon-pencil pull-right" v-show="l.FInputType==0"></span><span class="icon icon-phone pull-right" v-show="l.FInputType==1"></span>-->
+                                <!--</td>-->
+                                <!--<td><a v-on="click:getPic(l.FId)" href="javascript:;"   v-if="l.fileCount>0">查看照片</a></td></tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
                     </div>
                 </div>
             </div>

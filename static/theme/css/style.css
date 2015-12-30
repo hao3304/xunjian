@@ -1,233 +1,179 @@
-html,
-body {
+body,
+html {
   padding: 0;
   margin: 0;
 }
 .timeline {
-  font-family: "arial", "微软雅黑";
-  position: relative;
+  display: block;
+  margin: 20px auto;
+  font: 400 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.timeline .timeline-title {
-  height: 95px;
-}
-.timeline .timeline-title .circle {
-  width: 83px;
-  height: 83px;
-  position: absolute;
-  top: 0;
-  left: 207px;
-  border: 6px solid rgba(0, 0, 0, 0.15);
-  border-radius: 95px;
-  text-indent: 0;
-  text-align: center;
-  -webkit-transition: all 0.3s linear;
-  -moz-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
-}
-.timeline .timeline-title .timeblock {
-  margin-top: 20px;
-  text-align: center;
-}
-.timeline .timeline-title .timeblock .year {
-  color: #B31818;
-  font-size: 20px;
-  font-weight: bold;
-}
-.timeline .timeline-title .timeblock .day {
-  font-size: 16px;
-  color: #6bc30d;
-  font-weight: bold;
-}
-.timeline .timeline-title .timeblock span {
-  display: inline-block;
-  height: 24px;
-  width: 18px;
-  background: url(../images/date.png) no-repeat 0 0;
-}
-.timeline .timeline-title .timeblock .numf {
-  background-position: 0px -48px;
-}
-.timeline .timeline-title .timeblock .nums {
-  background-position: 0px 0px;
-}
-.timeline .timeline-title .timeblock .numt {
-  background-position: 0px -24px;
-}
-.timeline .timeline-title .timeblock .numfo {
-  background-position: 0px -72px;
-}
-.timeline .timeline-wrap {
-  height: 350px;
-  background-image: url("../images/vertical.png");
-  background-position: 250px 0;
-  background-repeat: repeat-y;
-  padding: 20px 100px 0px 100px;
-  text-align: center;
-}
-.timeline .timeline-wrap .timeline-group {
+.timeline ul {
+  list-style: none;
   padding: 0;
   margin: 0;
-  height: 330px;
-  overflow: hidden;
+  width: 100%;
+  background: url("../images/version_line.png") repeat-y 260px;
 }
-.timeline .timeline-wrap .timeline-group li {
-  list-style: none;
-  height: 110px;
-  line-height: 110px;
+.timeline ul li {
   position: relative;
+  min-height: 100px;
+  margin-bottom: 20px;
 }
-.timeline .timeline-wrap .timeline-group li .left {
+.timeline ul li .left {
   position: absolute;
-  left: 0;
-  line-height: 55px;
-  opacity: 0.6;
-  -moz-opacity: 0.6;
+  left: 25px;
+  text-align: center;
+  width: 200px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #74538C;
 }
-.timeline .timeline-wrap .timeline-group li .left .year {
-  color: #AEAEAE;
-  font-size: 12px;
-}
-.timeline .timeline-wrap .timeline-group li .left .day {
-  color: #AEAEAE;
+.timeline ul li .left .section-name {
+  padding: 10px;
   font-size: 18px;
+  line-height: 28px;
 }
-.timeline .timeline-wrap .timeline-group li .point {
+.timeline ul li .center {
+  width: 56px;
+  height: 56px;
   position: absolute;
-  width: 55px;
-  height: 55px;
-  top: 0;
-  background: url("../images/point.png") no-repeat 0 18px;
-  overflow: hidden;
-  left: 125px;
+  background: url("../images/version_dot.png") no-repeat;
+  left: 237px;
+  margin-top: -2px;
+  text-align: center;
+  line-height: 56px;
+  font-size: 22px;
+  color: #fff;
 }
-.timeline .timeline-wrap .timeline-group li .point b {
-  height: 16px;
-  width: 16px;
-  background: #fff;
-  display: block;
-  margin: 17px 0 0 19px;
-  border-radius: 18px;
-  border: 2px solid #6bc30d;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-  position: absolute;
+.timeline ul li .right {
+  margin-left: 305px;
+  padding-right: 100px;
+  min-width: 800px;
+}
+.timeline ul li .right .content {
+  background-color: #3594cb;
+  border-radius: 5px;
+  color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  padding: 10px;
+}
+.timeline ul li .right .content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.timeline ul li .right .content table tr {
+  line-height: 28px;
+}
+.timeline ul li .right .content table tr td {
+  padding: 5px;
+  border: 1px solid #fff;
+}
+.timeline ul li .right .content:hover {
+  border: 2px solid #deff00;
+  cursor: pointer;
+}
+.timeline ul li:nth-child(odd) .right .content {
+  background-color: #5A788A;
+}
+.nav-bar {
+  position: fixed;
+  right: 10px;
+  width: 50px;
+  top: 50%;
+  margin-top: -100px;
+  background-color: #004974;
+  text-align: center;
+  padding: 20px 0;
+  border-radius: 5px;
+}
+.nav-bar .icons {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin: 5px 0;
+  cursor: pointer;
+}
+.nav-bar .icons-arrow-up {
+  background: url("../images/iconfont-xiangshang.png");
+}
+.nav-bar .icons-arrow-bofang {
+  background: url("../images/iconfont-bofang.png");
+}
+.nav-bar .icons-arrow-zanting {
+  background: url("../images/iconfont-zanting.png");
+}
+.nav-bar .icons-arrow-down {
+  background: url("../images/iconfont-xiangxia.png");
+}
+.record-detail {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
-  cursor: pointer;
+  background-color: #efefef;
 }
-.timeline .timeline-wrap .timeline-group li .right {
-  position: absolute;
-  text-align: left;
-  width: 500px;
-  left: 200px;
-  -webkit-transition: all 1s linear;
-  opacity: 0.6;
-  -moz-opacity: 0.6;
-}
-.timeline .timeline-wrap .timeline-group li .right .title {
-  height: 35px;
-  line-height: 35px;
-}
-.timeline .timeline-wrap .timeline-group li .right .title a {
-  text-decoration: none;
-  font-size: 24px;
-  color: #747474;
-  cursor: pointer;
-}
-.timeline .timeline-wrap .timeline-group li .right .content {
-  font-size: 14px;
-  color: #6e6e6e;
-  line-height: 20px;
-}
-.timeline .timeline-wrap .timeline-group li.active .point b {
-  border: 7px solid rgba(107, 195, 13, 0.6);
-  margin: 12px 0px 0px 14px;
-  border-radius: 52px;
-}
-.timeline .timeline-wrap .timeline-group li.active .left {
-  opacity: 1;
-  -moz-opacity: 1;
-}
-.timeline .timeline-wrap .timeline-group li.active .left .year {
-  font-size: 13px;
-}
-.timeline .timeline-wrap .timeline-group li.active .left .day {
-  font-size: 19px;
-}
-.timeline .timeline-wrap .timeline-group li.active .right {
-  opacity: 1;
-  -moz-opacity: 1;
-}
-.timeline .timeline-wrap .timeline-group li.active .right .title a {
-  color: #6bc30d;
+.record-detail .header {
+  height: 44px;
+  line-height: 44px;
+  color: #fff;
   font-size: 26px;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-}
-.timeline .timeline-wrap .timeline-group li.active .right .content {
-  font-size: 16px;
-}
-.timeline .timeline-foot {
-  height: 72px;
-}
-.timeline .timeline-foot .circle {
-  width: 60px;
-  height: 60px;
-  position: absolute;
-  bottom: 0;
-  left: 218px;
-  border: 6px solid rgba(0, 0, 0, 0.15);
-  border-radius: 95px;
-  text-indent: 0;
   text-align: center;
+  background-color: #6E6AB7;
+  border-bottom: 1px solid #333;
 }
-.timeline .timeline-foot .circle .timeblock {
-  font-size: 0;
-  text-align: center;
-  margin-top: 18px;
+.record-detail .header .close {
+  cursor: pointer;
+  float: right;
+  width: 32px;
+  height: 32px;
+  margin: 6px 10px 0 0 ;
+  background-image: url("../images/iconfont-guanbi.png");
 }
-.timeline .timeline-foot .circle .timeblock span {
+.record-detail .wrap {
+  padding: 20px;
+}
+.record-detail .wrap table {
+  border: 1px solid #ddd;
+  border-left: none;
+  width: 100%;
+  margin-bottom: 1.6rem;
+  border-spacing: 0;
+  border-collapse: separate;
+  background-color: #fff;
+  empty-cells: show;
+}
+.record-detail .wrap table th,
+.record-detail .wrap table td {
+  padding: .7rem;
+  line-height: 1.6;
+  vertical-align: top;
+  border: 1px solid #ddd;
+}
+.record-detail .wrap table .icons {
+  margin-top: 5px;
+  width: 16px;
+  height: 16px;
   display: inline-block;
-  height: 24px;
-  width: 18px;
-  background: url(../images/date.png) no-repeat 0 0;
-  -webkit-transition: all 0.3s linear;
-  -moz-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
 }
-.timeline .timeline-foot .circle .timeblock .num0 {
-  background-position: 0px 0px;
+.record-detail .wrap table .icons-mobile {
+  background-image: url("../images/iconfont-phone.png");
 }
-.timeline .timeline-foot .circle .timeblock .num1 {
-  background-position: 0px -24px;
+.record-detail .wrap table .icons-pencil {
+  background-image: url("../images/iconfont-diannao.png");
 }
-.timeline .timeline-foot .circle .timeblock .num2 {
-  background-position: 0px -48px;
+.record-detail .wrap table .pull-right {
+  float: right;
 }
-.timeline .timeline-foot .circle .timeblock .num3 {
-  background-position: 0px -72px;
+.record-detail .pic-wrap {
+  width: 100%;
+  list-style: none;
 }
-.timeline .timeline-foot .circle .timeblock .num4 {
-  background-position: 0px -96px;
-}
-.timeline .timeline-foot .circle .timeblock .num5 {
-  background-position: 0px -120px;
-}
-.timeline .timeline-foot .circle .timeblock .num6 {
-  background-position: 0px -144px;
-}
-.timeline .timeline-foot .circle .timeblock .num7 {
-  background-position: 0px -168px;
-}
-.timeline .timeline-foot .circle .timeblock .num8 {
-  background-position: 0px -192px;
-}
-.timeline .timeline-foot .circle .timeblock .num9 {
-  background-position: 0px -216px;
+.record-detail .pic-wrap li {
+  float: left;
+  width: 50%;
 }
