@@ -48,15 +48,20 @@ module.exports = Vue.extend({
          })
       },
       transData: function (data) {
-         debugger
-         var lst = [];
+
+         var lst = [],th = {};
+
+         for(var i in this.ths){
+            th[this.ths[i].id] = "";
+         }
+
          if(data.length > 1){
             for(var i=0;i<data.length;i++){
                var sections = data[i].sectionObjectList;
                for(var s=0;s<sections.length;s++){
                   var contents = sections[s].contentList;
                   for(var c = 0;c<contents.length;c++){
-                     lst.push({
+                     lst.push($.extend({
                         SectionId:data[i].FSectionId,
                         SectionName:data[i].sectionName,
                         ObjectName:sections[s].objectame,
@@ -68,7 +73,7 @@ module.exports = Vue.extend({
                         InputType:0,
                         ContentValue:contents[c].FContentDefault,
                         FileList:[]
-                     })
+                     },th))
                   }
                }
             }
@@ -113,15 +118,26 @@ module.exports = Vue.extend({
          this.loading = true;
          Service.getRecordById(id, function (rep) {
             self.loading = false;
-            self.contrastData(rep.recordResultContentList);
+            self.contrastData(rep.recordResultContentList,id);
          });
       },
-      contrastData: function (data) {
+      contrastData: function (data,record) {
+
+         for (var i = 0; i < this.contents.length; i++) {
+            var obj = this.contents[i];
+            for (var j = 0; j < data.length; j++) {
+               var obj1 = data[j];
+               if(obj1.FContentId == obj.ContentId){
+                  obj[record] = obj1.FContentValue;
+               }
+            }
+
+         }
 
       },
       onCheck: function (t) {
          if(window.event.target.checked){
-            this.getDetailInfo(t.FId);
+            this.getDetailInfo(t.id);
          }
       }
    },

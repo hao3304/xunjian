@@ -234,6 +234,17 @@ router.on("/record/:id",function(id){
     })
 });
 
+router.on("/record/edit/:id",function(id){
+    require.async(["page/record/edit/edit.js"], function (p) {
+        p.options.methods.getId = function () {
+            return id;
+        };
+        window.app.$broadcast("edit",{id:id});
+        doRouter("record-edit",p);
+    })
+});
+
+
 router.on("/contrast",function(){
     require.async(["page/record/contrast/contrast.js"], function (p) {
         doRouter("contrast",p);

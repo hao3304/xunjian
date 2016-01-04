@@ -1,41 +1,45 @@
-<div class="container-fluid page-contrast">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="form-horizontal">
-                        <div class="form-group" style="margin-bottom: 0">
-                            <label class="control-label col-sm-3">路线</label>
-                            <div class="col-sm-9">
-                                <select class=" form-control" options="routes" v-model="selectRoute">
-                                    <option value="-1">请选择</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item" v-repeat="t in times">
+<div class="panel">
+    <div class="panel-heading">对比
+        <a href="#record" class="btn btn-sm btn-primary pull-right">
+            <span class="icon icon-arrow-left"></span>
+            返回</a>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid page-contrast">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel">
+                        <div class="panel-heading">
                             <div class="form-horizontal">
                                 <div class="form-group" style="margin-bottom: 0">
-                                    <label class="control-label col-sm-10 input-sm" style="text-align: left">
-                                        {{t.FCheckTime | datetime}}
-                                    </label>
-                                    <div class="col-sm-2">
-                                        <input type="checkbox" class="form-control input-sm " v-model="t.isChecked" v-on="click:onCheck(t)">
+                                    <label class="control-label col-sm-3">路线</label>
+                                    <div class="col-sm-9">
+                                        <select class=" form-control" options="routes" v-model="selectRoute">
+                                            <option value="-1">请选择</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" v-repeat="t in ths">
+                                    <div class="form-horizontal">
+                                        <div class="form-group" style="margin-bottom: 0">
+                                            <label class="control-label col-sm-10 input-sm" style="text-align: left">
+                                                {{t.name}}
+                                            </label>
+                                            <div class="col-sm-2">
+                                                <input type="checkbox" class="form-control input-sm " v-model="t.show" v-on="click:onCheck(t)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="panel">
-
-                <div class="panel-body">
+                <div class="col-md-9">
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
@@ -50,10 +54,11 @@
                             <td rowspan="{{r.rows}}" style="vertical-align: middle;" v-show="r.rows">{{r.SectionName}}</td>
                             <td  rowspan="{{r.objrows}}" style="vertical-align: middle;" v-show="r.objrows" >{{r.ObjectName}}</td>
                             <td>{{r.ContentName}}</td>
-
+                            <td v-repeat="s in ths" v-show="s.show">{{r[s.id]}}</td>
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
