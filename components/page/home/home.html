@@ -12,7 +12,7 @@
                         <div class="panel-body">
                             <div style="min-height: 400px" id="carousel-example-captions" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li v-repeat="f in Fiels" data-target="#carousel-example-captions" v-attr="data-slide-to:$index" v-class="active:$index==0"></li>
+                                    <li v-repeat="f in Files" data-target="#carousel-example-captions" v-attr="data-slide-to:$index" v-class="active:$index==0"></li>
                                 </ol>
                                 <div class="carousel-inner" role="listbox">
                                     <div v-repeat="f in Files" class="item" v-class="active:$index==0">
@@ -39,43 +39,30 @@
                             最新巡检记录
                         </div>
                         <div class="panel-body" style="padding: 0;height: 205px;overflow: hidden">
-                           <!-- <table class="table table-bordered table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th>检查日期</th>
-                                    <th>持续时间</th>
-                                    <th>路线</th>
-                                    <th>巡检人</th>
-                                    <th>评价</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-repeat="r in Recent"><td>{{r.FStartTime | datetime}}至{{r.FFinishiTime | datetime}}</td><td>0</td><td>{{r.routName}}</td><td>{{r.FCheckPerson}}</td><td>{{r.FCheckStatus|status}}</td></tr>
-                                </tbody>
-                            </table>-->
                             <c-datagrid options="{{datagrid_record}}"></c-datagrid>
 
                         </div>
                     </div>
 
-                    <div class="panel panel-primary" style="height: 205px;overflow-y: auto;">
+                    <div class="panel panel-primary" style="height: 205px;overflow-y: hidden;">
                         <div class="panel-heading">
                             最新任务
                         </div>
                         <div class="panel-body" style="padding: 0">
-                            <table class="table table-bordered table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th>路线</th>
-                                    <th>巡检人</th>
-                                    <th>开始时间</th>
-                                    <th>状态</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-repeat="t in Task"><td>{{t.FRoutDesc}}</td><td>{{t.FChargePersonName}}</td><td>{{t.FOperateTime|datetime}}</td><td>{{t.FState}}</td></tr>
-                                </tbody>
-                            </table>
+                            <!--<table class="table table-bordered table-striped table-hover">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>路线</th>-->
+                                    <!--<th>巡检人</th>-->
+                                    <!--<th>开始时间</th>-->
+                                    <!--<th>状态</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr v-repeat="t in Task"><td>{{t.FRoutDesc}}</td><td>{{t.FChargePersonName}}</td><td>{{t.FOperateTime|datetime}}</td><td>{{t.FState}}</td></tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                            <c-datagrid options="{{datagrid_task}}"></c-datagrid>
                         </div>
                     </div>
 

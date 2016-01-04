@@ -18,11 +18,11 @@ module.exports = Vue.component("c-datagrid",{
             this.autoWidth();
         },
         autoWidth:function(){
-            var tds = $(".c-datagrid .c-datagrid-header .table tr:first th");
+            var tds = $(this.$el).find(".c-datagrid-header .table tr:first th");
             for (var i = 0; i < tds.length; i++) {
                 var w = $(tds[i]).width();
-                $(".c-datagrid-row-"+this.options.columns[i].field).width(w);
-                $(".c-datagrid-th-"+this.options.columns[i].field).width(w);
+                $(this.$el).find(".c-datagrid-row-"+this.options.columns[i].field).width(w);
+                $(this.$el).find(".c-datagrid-th-"+this.options.columns[i].field).width(w);
             }
         },
         getText:function(val,o){

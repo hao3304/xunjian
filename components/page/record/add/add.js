@@ -7,6 +7,7 @@ var foot = require("foot/foot.js");
 var pager = require("pager/pager.js");
 var Service = require("main/service.js");
 var filter = require("component/filter/filter.js");
+var Check = require("main/check.js");
 
 module.exports = Vue.extend({
    inherit:true,
@@ -46,7 +47,7 @@ module.exports = Vue.extend({
             start.max = d;
          }};
 
-         var inspect= {istime: true, format: 'YYYY-MM-DD hh:mm:ss',elem:"#inspectDate",choose: function (d) {
+         var inspect= {istime: true, format: 'YYYY-MM-DD',elem:"#inspectDate",choose: function (d) {
             self.record.InspectDate = d;
          }};
          laydate(start);
@@ -79,7 +80,7 @@ module.exports = Vue.extend({
                         ContentId:contents[c].FId,
                         Remark:"",
                         InputType:0,
-                        ContentValue:"",
+                        ContentValue:contents[c].FContentDefault,
                         FileList:[]
                      })
                   }
@@ -148,7 +149,7 @@ module.exports = Vue.extend({
          this.record.RecordDesc="";
          this.record.InspectDate ="";/*检查日期*/
          this.record.InspectPerson ="";/*检查人*/
-         this.record.ChargePersonId =0;/*检查人*/
+         this.record.ChargePersonId ="";/*检查人*/
          this.record.StartTime = "";
          this.record.FinishiTime = "";
          this.record.StationId = localStorage["STATIONID"];
@@ -172,6 +173,26 @@ module.exports = Vue.extend({
                }
             }
          }
+      }
+   },
+   computed: {
+      validation: function () {
+         return {
+            RoutId: Check.check(this.record.RoutId,"plusinteger"),
+            Status: Check.check(this.record.Status,"plusinteger"),
+            userList: Check.check(this.record.userList,"required"),
+            StartTime: Check.check(this.record.StartTime,"datetime"),
+            FinishiTime: Check.check(this.record.FinishiTime,"datetime"),
+            InspectPerson: Check.check(this.record.InspectPerson,"required"),
+            ChargePersonId: Check.check(this.record.ChargePersonId,"required"),
+            InspectDate: Check.check(this.record.InspectDate,"datetime")
+         }
+      },
+      isValid: function () {
+         var validation = this.validation;
+         return Object.keys(validation).every(function (key) {
+            return validation[key]
+         })
       }
    },
    ready: function () {

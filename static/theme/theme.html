@@ -3,15 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.js"></script>
+    <style>
+        .first-item{
+            margin-top: 110px;
+        }
+    </style>
 </head>
-<body style="background-color: #efefef"  ms-controller="timeline" ms-css-overflow="showDetail?'hidden':'auto'">
-<div class="timeline">
+<body class="theme" style="background-color: #efefef;overflow: hidden"  ms-controller="timeline" >
+<div class="theme-header" ms-text="routName">
+
+</div>
+
+<div id="arrow">
+    <ul>
+        <li class="arrowup"></li>
+        <li class="play" ms-class="active:play==true" ms-click="onPlay"></li>
+        <li class="arrowdown"></li>
+    </ul>
+</div>
+
+<div id="history">
+
+    <div class="title">
+        <div id="circle">
+            <div class="cmsk"></div>
+            <div class="circlecontent">
+                <div class="timeyear">No.{{currentIndex}}</div>
+            </div>
+            <a href="#" class="clock"></a>
+        </div>
+    </div>
+
+    <div id="content">
+        <ul class="list"  >
+            <li  ms-repeat="detailList" ms-class="thiscur:$index==currentIndex" >
+                <div class="liwrap">
+                    <div class="lileft">
+                        <div class="date">
+                            <span class="year"  ms-html="el.list[0].CheckResult"></span>
+                        </div>
+                    </div>
+                    <div ms-if="el.id" class="point"><b></b></div>
+                    <div class="liright">
+                        <div class="histt"  ms-click="onShowDetail(el)" style="cursor: pointer">
+                            <a href="#" ms-text="el.name"></a>
+
+                            <span v-if="$index==currentIndex" class="arrow-right">
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="detail">
+                        <table style="height: 100%">
+                            <tr ms-repeat="el.list" >
+                                <td style="vertical-align: middle;" ms-visible="el.objrows" ms-class="noInfo:!el.objrows" >
+                                    <div v-class="warning:el.FContentStatus!=0">{{el.objectName}}</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="obj-detail" style="height: 100%">
+
+    </div>
+
+
+</div>
+<div style="text-align:center;clear:both">
+</div>
+
+
+<div ms-visible="showDetail" class="record-detail" >
+    <div class="header">巡检区段详情
+        <span class="close" ms-click="onCloseDetail"></span>
+    </div>
+    <div class="wrap">
+        <table ms-if="detail.list.length>0" class="table">
+            <thead>
+            <tr>
+                <th>巡检区段</th>
+                <th >巡检对象</th>
+                <th >检查内容</th>
+                <th width="100px">检查结果</th>
+                <th>结果描述</th>
+                <th >附件</th>
+                <th style="text-align: center">检查时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="detail.list">
+                <td ms-attr-rowspan="{{el.rows}}" style="vertical-align: top;" ms-if="el.rows">{{el.sectionName}}</td>
+                <td  ms-attr-rowspan="{{el.objrows}}" style="vertical-align: middle;" ms-if="el.objrows" >{{el.objectName}}</td>
+                <td  >{{el.contentName}}</td>
+                <td style="text-align: center" >{{el.FContentStatus | getStatus}}</td>
+                <td style="width: 120px">{{el.FContentValue}} <span class="icons icons-pencil pull-right" ms-visible="el.FInputType==0"></span><span class="icons icons-mobile pull-right" ms-visible="el.FInputType==1"></span></td>
+                <td >
+                    <a  ms-click="getPic(el)" href="javascript:;" ms-if="el.fileCount>0&&el.picture.length==0">查看附件{{el.picture}}</a>
+
+                    <a ms-repeat="el.picture" ms-text="'照片'+($index+1)" ms-attr-href="prefix+el.FFileRelativeAddress" target="_blank"> </a>
+                </td>
+                <td  ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--<div class="timeline">
     <ul>
         <li ms-repeat="detailList" >
             <div class="left">
-                <div class="section-name" ms-text="el.name">
+                <div class="section-name" ms-html="el.list[0].CheckResult">
                 </div>
             </div>
             <div class="center" ms-text="$index+1">
@@ -21,14 +133,9 @@
                 <div class="content" ms-click="onShowDetail(el)">
                     <table>
                         <tr ms-repeat="el.list">
-                            <td width="100px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
-                            <!--<td width="200px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: top;" ms-if="el.rows">{{el.sectionName}}</td>-->
-                            <td  width="150px"  ms-attr-rowspan="{{el.objrows}}" style="vertical-align: middle;" ms-if="el.objrows" ms-css-background="el.FContentStatus!=0?'red':''" ms-text="el.objectName"></td>
-                            <!--      <td ms-visible="showDetail" width="200px" >{{el.contentName}}</td>
-                                  <td ms-visible="showDetail" width="40px">{{el.FContentStatus | getStatus}}</td>
-                                  <td ms-visible="showDetail" width="100px"><a  ms-click="click:getPic(r.FId)" href="javascript:;" ms-if="el.fileCount>0">查看图片</a></td>
-                                  <td ms-visible="showDetail" ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>
-                            -->
+                            &lt;!&ndash;<td width="100px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: middle;text-align: center;" ms-if="el.rows" ms-html="el.CheckResult" ></td>&ndash;&gt;
+                            <td width="200px" ms-attr-rowspan="{{el.rows}}" style="vertical-align: top;" ms-if="el.rows">{{el.sectionName}}</td>
+                            &lt;!&ndash;<td  width="150px"  ms-attr-rowspan="{{el.objrows}}" style="vertical-align: middle;" ms-if="el.objrows" ms-css-background="el.FContentStatus!=0?'red':''" ms-text="el.objectName"></td>&ndash;&gt;
                         </tr>
                     </table>
                 </div>
@@ -81,7 +188,7 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>-->
 </body>
 </html>
 <script src="avalon.js"></script>

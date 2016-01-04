@@ -25,7 +25,6 @@
                             重置</button>
             </span>
         </div>
-
         <table class="table  table-bordered table-striped table-hover">
             <thead>
             <tr>
@@ -39,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status}}</td><td><a href="#">编辑</a> <a href="javascript:;" v-on="click:onDelTask(v.FId)">删除</a></td></tr>
+            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status2}}</td><td><a href="#">编辑</a> <a href="javascript:;" v-on="click:onDelTask(v.FId)">删除</a></td></tr>
             </tbody>
         </table>
         <!--<c-pager></c-pager>-->
@@ -72,11 +71,17 @@
                                 <div class="col-sm-9">
                                     <input type="text" v-model="task.beginTime" id="startTime" class="form-control" placeholder="开始时间">
                                 </div>
+                                <div class="col-sm-1 validator" v-show="!validation.beginTime">
+                                    <span class="label label-warning">必填</span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">截止时间</label>
                                 <div class="col-sm-9">
                                     <input type="text"  v-model="task.endTime" id="endTime" class="form-control"   placeholder="截止时间">
+                                </div>
+                                <div class="col-sm-1 validator" v-show="!validation.endTime">
+                                    <span class="label label-warning">必填</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,6 +90,9 @@
                                     <select class="form-control" id="chargepersonname" options="base.userList" v-model="task.chargepersonid">
                                         <option value="-1">请选择</option>
                                     </select>
+                                </div>
+                                <div class="col-sm-1 validator" v-show="!validation.chargepersonid">
+                                    <span class="label label-warning">必选</span>
                                 </div>
                             </div>
                         </form>

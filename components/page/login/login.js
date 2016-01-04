@@ -40,7 +40,7 @@ module.exports = Vue.extend({
          if(s==1){
             setTimeout(function () {
                var router = new Router();
-               router.setRoute("home");
+               router.setRoute("query");
                this.loading = false;
             },500)
          }

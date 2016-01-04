@@ -67,6 +67,7 @@ fis.match('::packager', {
     packTo: '/static/pkg/all.css' //css打成一个包
 })
 
+
 //生产环境下CSS、JS压缩合并
 //使用方法 fis3 release prod
 fis.media('prod')

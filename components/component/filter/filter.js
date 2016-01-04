@@ -45,6 +45,20 @@ Vue.filter("status", function (type) {
     }
 });
 
+Vue.filter("status2", function (type) {
+    switch (type){
+        case 0:{
+            return "未完成";
+        }break;
+        case 1:{
+            return "已完成";
+        }break;
+        case 2:{
+            return "过期"
+        }break;
+    }
+});
+
 function getStatus(type){
     switch (type){
         case 0:{

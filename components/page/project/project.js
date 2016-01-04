@@ -140,7 +140,11 @@ module.exports = Vue.extend({
          return {
             remark: Check.check(this.plan.remark,"required"),
             routId: Check.check(this.plan.routId,"plusinteger"),
-            cycleType: Check.check(this.plan.cycleType,"plusinteger")
+            cycleType: Check.check(this.plan.cycleType,"plusinteger"),
+            startTime: Check.check(this.plan.startTime,"datetime"),
+            endTime: Check.check(this.plan.endTime,"datetime"),
+            ChargePersonID: Check.check(this.plan.ChargePersonID,"plusinteger"),
+            cycle: Check.check(this.plan.cycle,"required")
          }
       },
       isValid: function () {

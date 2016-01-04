@@ -69,7 +69,7 @@ $(function () {
     };
 
 
-
+    var timer;
 
     var vm = avalon.define({
         $id:"timeline",
@@ -77,11 +77,19 @@ $(function () {
         prefix:"http://221.12.173.124:8080/inspectservice/",
         showDetail:false,
         play:false,
+        currentIndex:1,
+        routName:"",
         picture:[],
         detail:{
             list:[]
         },
         onShowDetail: function (obj) {
+            vm.play = false;
+
+            if(timer){
+                clearInterval(timer);
+            }
+
             vm.detail = obj;
             vm.showDetail = true;
             if(vm.play){
@@ -91,22 +99,26 @@ $(function () {
         onCloseDetail: function () {
             vm.showDetail = false;
         },
-        onScrollBottom: function () {
-            app.onScrollBottom.call(app);
-        },
-        onScrollTop: function () {
-            app.onScrollTop.call(app);
-        },
-        onPlay: function () {
-            app.onPlay.call(app);
-        },
-        onStopPlay: function () {
-            app.onStopPlay.call(app)
-        },
         getPic: function (el) {
             $.getJSONP(prefix+"getInspectObjectContentResultFileList/"+el.FId, function (rep) {
                 el.picture = rep;
             })
+        },
+        onPlay: function () {
+            vm.play = !vm.play;
+            if(vm.play){
+                timer = setInterval(function () {
+                    if(vm.currentIndex >= (vm.detailList.length-2) ){
+                        vm.play = false;
+                        return clearInterval(timer);
+                    }
+                    $(".arrowdown").trigger("click");
+
+                },4000);
+            }else{
+                clearInterval(timer);
+            }
+
         }
     });
 
@@ -114,19 +126,23 @@ $(function () {
 
     var app = {
         init: function (data) {
-            this.$body = $("body"),
-                this.clientHeight = document.documentElement.clientHeight,
-                this.scrollHeight = $(document).height(),
-                this.scrollTop = document.body.scrollTop,
-                this.items = $(".timeline li"),
-                this.index = 0; /*播放游标*/
-
+            var s = document.createElement("script");
+            s.src = "js/history.js";
+            var header =document.getElementsByTagName("head")[0];
+            header.appendChild(s);
             var self = this;
-            this.$body.on("mousewheel", function () {
-                if(vm.play){
-                    self.onStopPlay();
-                }
+            $(".theme").bind("arrowup", function (e,index) {
+                vm.currentIndex = index+1;
+                self.showObj();
+            }).bind("arrowdown", function (e,index) {
+                vm.currentIndex = index+1;
+                self.showObj();
             });
+
+            setTimeout(function () {
+                $(".arrowup").trigger("click");
+            },500);
+
         },
         render: function () {
             this.getData();
@@ -134,11 +150,41 @@ $(function () {
         getData: function () {
             var self = this;
             $.getJSONP(prefix+"getRecordById/"+this.GetQueryString("id"), function (rep) {
+                vm.routName = rep.routName;
                 vm.detailList = self.tranData(rep);
                 avalon.nextTick(function () {
                     self.init();
                 })
             })
+        },
+        showObj: function () {
+            var target = $(".obj-detail").css({
+                "opacity":0,
+                "right":200
+            });
+
+            var right = $(".arrow-right").css({
+                opacity:0,
+                right: -100
+            })
+
+            $("#content").find("li").eq(vm.currentIndex).find(".detail .noInfo").parents("tr").remove();
+            target.html($("#content").find("li").eq(vm.currentIndex).find(".detail").html());
+
+            setTimeout(function () {
+                right.animate({
+                    opacity:1,
+                    right: -120
+                });
+            },500);
+
+            setTimeout(function () {
+                target.animate({
+                    opacity:1,
+                    right:150
+                })
+            },800)
+
         },
         tranData: function (result) {
             var data  = result.recordResultContentList, sectionList = [];
@@ -199,7 +245,9 @@ $(function () {
                     }
                 }
             }
-            return sectionList;
+
+
+            return [{id:"",name:"",list:[{CheckResult:""}]}].concat(sectionList).concat([{id:"",name:"",list:[{CheckResult:""}]}]);
         },
         tranDate: function (str,type) {
             var stamp = str.replace("/Date(","").replace("+0800)/","");
@@ -220,28 +268,6 @@ $(function () {
                 return month +"月" + day +"日";
             }
         },
-        onPlay: function () {
-            if(this.scrollHeight > this.clientHeight){
-                var self = this;
-                this.getIndex();
-                vm.play = true;
-                this.timer = setInterval(function(){
-                    var scroll =self.$body.scrollTop()+ self.items[self.index].scrollHeight+20;
-
-                    if(scroll > (self.scrollHeight -self.clientHeight) ){
-                        scroll = scroll- (self.scrollHeight -self.clientHeight);
-                        self.onStopPlay();
-                    }
-
-                    self.$body.animate({
-                        scrollTop:scroll
-                    });
-                    self.index +=1;
-
-                },2000)
-
-            }
-        },
         onStopPlay: function () {
             vm.play = false;
             clearInterval(this.timer);
@@ -257,16 +283,6 @@ $(function () {
                     h += $(items[i]).height() + 20;
                 }
             }
-        },
-        onScrollBottom: function () {
-            this.$body.animate({
-                scrollTop:$(document).height() - document.documentElement.clientHeight
-            });
-        },
-        onScrollTop: function () {
-            this.$body.animate({
-                scrollTop:0
-            });
         },
         GetQueryString:function(name)
         {

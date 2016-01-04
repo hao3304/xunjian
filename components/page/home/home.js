@@ -25,7 +25,17 @@ module.exports = Vue.extend({
                {"title":"评价",field:"FCheckStatus",filter:filter.getStatus}
             ],
             data:[],
-            height:"200px"
+            height:"160px"
+         },
+         "datagrid_task":{
+            columns:[
+               {"title":"路线",field:"FRoutDesc"},
+               {"title":"巡检人",field:"FChargePersonName"},
+               {"title":"开始时间",field:"FOperateTime",filter:filter.tranDate},
+               {"title":"状态",field:"FState"}
+            ],
+            data:[],
+            height:"120px"
          }
       }
    },
@@ -40,7 +50,7 @@ module.exports = Vue.extend({
       renderTask: function () {
          var self = this;
          Service.getRecentTaskList(10,function (rep) {
-            self.Task = rep;
+            self.datagrid_task.data = rep;
          })
       },
       renderPic: function () {

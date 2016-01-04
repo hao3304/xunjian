@@ -175,7 +175,10 @@ module.exports = Vue.extend({
    computed: {
       validation: function () {
          return {
-            routid: Check.check(this.task.routid,"plusinteger")
+            routid: Check.check(this.task.routid,"plusinteger"),
+            beginTime: Check.check(this.task.beginTime,"datetime"),
+            endTime: Check.check(this.task.endTime,"datetime"),
+            chargepersonid: Check.check(this.task.chargepersonid,"plusinteger")
          }
       },
       isValid: function () {

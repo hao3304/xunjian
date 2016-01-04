@@ -33,9 +33,9 @@ module.exports = Vue.extend({
             columns:[
                {"title":"检查时间",field:"FOperateTime",filter:filter.tranDate},
                {"title":"巡检对象",field:"objectName"},
-               {"title":"检查内容",field:"FContentValue"},
+               {"title":"检查内容",field:"contentName"},
                {"title":"结果状态",field:"FContentStatus",filter:filter.getStatus},
-               {"title":"结果描述",field:"contentName"},
+               {"title":"结果描述",field:"FContentValue"},
                {"title":"附件",field:"fileCount",type:"edit",buttons:[
                   {
                      title:"查看照片",
@@ -49,7 +49,7 @@ module.exports = Vue.extend({
                ]}
             ],
             data:[],
-            height:"300px"
+            height:"332px"
          }
       }
    },

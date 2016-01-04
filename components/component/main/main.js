@@ -234,6 +234,12 @@ router.on("/record/:id",function(id){
     })
 });
 
+router.on("/contrast",function(){
+    require.async(["page/record/contrast/contrast.js"], function (p) {
+        doRouter("contrast",p);
+    })
+});
+
 router.on("/task",function(){
     require.async(["page/task/task.js"], function (p) {
         doRouter("task",p);
