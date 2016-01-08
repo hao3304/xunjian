@@ -229,7 +229,7 @@ $(function () {
                             if(dl[d].FEndInputType == 0){
                                 endstr += "(手动)";
                             }
-                            data[i].CheckResult = beginstr +"<br/>至<br/>" + endstr;
+                            data[i].CheckResult = beginstr ;
                         }
                     }
                 }

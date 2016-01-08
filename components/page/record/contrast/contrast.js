@@ -128,7 +128,7 @@ module.exports = Vue.extend({
             for (var j = 0; j < data.length; j++) {
                var obj1 = data[j];
                if(obj1.FContentId == obj.ContentId){
-                  obj[record] = obj1.FContentValue;
+                  obj[record] ={status:obj.FContentStatus,value:obj1.FContentValue};
                }
             }
 

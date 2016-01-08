@@ -54,7 +54,7 @@
                             <td rowspan="{{r.rows}}" style="vertical-align: middle;" v-show="r.rows">{{r.SectionName}}</td>
                             <td  rowspan="{{r.objrows}}" style="vertical-align: middle;" v-show="r.objrows" >{{r.ObjectName}}</td>
                             <td>{{r.ContentName}}</td>
-                            <td v-repeat="s in ths" v-show="s.show">{{r[s.id]}}</td>
+                            <td v-repeat="s in ths" v-style="background-color:r[s.id].status!=0?'':'red'" v-show="s.show">{{r[s.id].value}}</td>
                         </tr>
                         </tbody>
                     </table>

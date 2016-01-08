@@ -436,6 +436,17 @@ function addNewRecord(p,c){
     })
 }
 
+/*更新巡检记录*/
+function updateInsRecord(p,c){
+    $.ajax({
+        type:"POST",
+        contentType:"application/json",
+        url:prefix + "updateInsRecord",
+        data:p,
+        success: c
+    })
+}
+
 function upFile(p,c){
     $.ajaxFileUpload
     (
@@ -448,6 +459,8 @@ function upFile(p,c){
         }
     )
 }
+
+
 
 
 module.exports = {
@@ -522,5 +535,6 @@ module.exports = {
     UpdateInspectSection:UpdateInspectSection,
     changeRoutSectionObjectIndex:changeRoutSectionObjectIndex,
     DeleteLocation:DeleteLocation,
-    UpdateLocation:UpdateLocation
+    UpdateLocation:UpdateLocation,
+    updateInsRecord:updateInsRecord
 };

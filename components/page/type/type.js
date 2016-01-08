@@ -140,14 +140,14 @@ module.exports = Vue.extend({
       onAddContent: function () {
          this.content.Id = "";
          this.content.categoryId = this.selectType;
-         this.content.standardId = this.standardList[0].value;
+         this.content.standardId =this.standardList.length>0?this.standardList[0].value:"";
          this.content.method= this.methodList[0].value;
          this.content.contentName="";
          /*   this.content.contentIndex="";*/
          this.content.contentMax="";
          this.content.contentMin="";
          this.content.contentType= 0;
-         this.content.contentDefault="";
+         this.content.contentDefault="Î´¼ûÒì³£";
 
          this._showContentModal();
       },

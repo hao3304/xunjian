@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status2}}</td><td><a href="#">±à¼­</a> <a href="javascript:;" v-on="click:onDelTask(v.FId)">É¾³ý</a></td></tr>
+            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status2}}</td><td> <a href="javascript:;" v-on="click:onDelTask(v.FId)">É¾³ý</a></td></tr>
             </tbody>
         </table>
         <!--<c-pager></c-pager>-->

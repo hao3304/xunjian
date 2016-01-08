@@ -14,7 +14,21 @@ module.exports = Vue.extend({
    data: function () {
       return {
          contents:[],
-         detail:{},
+         detail:{
+            RoutName:"",
+            Status:"",/*状态，0，正常，1异常，2良好*/
+            RoutId:"",
+            RecordDesc:"",
+            InspectDate:"", /*检查日期*/
+            InspectPerson:"", /*检查人*/
+            ChargePersonId:"",/*负责人*/
+            StartTime:"",
+            FinishiTime:"",
+            ExcuteStatus:1, /*执行状态*/
+            InputType:0, /*web输入*/
+            StationId:"", /*水电站ID*/
+            Remark:""
+         },
          pics:[]
       }
    },
@@ -26,7 +40,20 @@ module.exports = Vue.extend({
          var self = this;
          this.loading = true;
          Service.getRecordById(id, function (rep) {
-            self.detail = rep;
+
+            self.detail.Id = rep.FId;
+            self.detail.RoutName = rep.FRoutName;
+            self.detail.Status = rep.FStatus;
+            self.detail.RoutId = rep.FRoutId;
+            self.detail.RecordDesc= rep.FRecordDesc;
+            self.detail.InspectDate = filter.tranDate(rep.FInspectDate);/*检查日期*/
+            self.detail.InspectPerson = rep.FInspectPerson;/*检查人*/
+            self.detail.ChargePersonId = rep.FChargePersonId;/*检查人*/
+            self.detail.StartTime = filter.tranDate(rep.FStartTime);
+            self.detail.FinishiTime = filter.tranDate(rep.FFinishiTime);
+            self.detail.StationId = rep.FStationId;
+            self.detail.Remark = rep.FRemark;
+
             self.contents = self.tranData(rep);
             self.loading = false;
          })
@@ -120,6 +147,9 @@ module.exports = Vue.extend({
       },
       hideModal: function () {
          $('#detailModal').modal('hide');
+      },
+      onUpdate: function () {
+         Service.updateInsRecord(JSON.stringify({recordstr:this.detail,ObjectContentResultListstr:this.contents}))
       }
    },
    ready: function () {

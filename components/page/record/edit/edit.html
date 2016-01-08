@@ -13,20 +13,24 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">路线</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm "  disabled value="{{detail.routName}}">
+                                <select class="form-control " disabled v-model="detail.RoutId" options="base.routList">
+                                    <option >请选择</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">状态</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm"  value="{{detail.FCheckStatus | status }}">
+                                <select class="form-control"  v-model="detail.Status" options="base.status">
+                                    <option >请选择</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">开始时间</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-sm"  value="{{detail.FStartTime | datetime}}">
+                                    <input type="text" class="form-control input-sm"  v-model="detail.StartTime">
                                 <span class="input-group-btn">
                                     <a class="btn btn-default btn-sm">
                                         <span  class="icon icon-calendar " aria-hidden="true"></span>
@@ -39,7 +43,7 @@
                             <label class="col-sm-4 control-label">结束时间</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-sm"  value="{{detail.FFinishiTime | datetime}}">
+                                    <input type="text" class="form-control input-sm"  v-model="detail.FinishiTime">
                                   <span class="input-group-btn">
                                     <a class="btn btn-default btn-sm">
                                         <span  class="icon icon-calendar " aria-hidden="true"></span>
@@ -49,36 +53,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">评价</label>
-                            <div class="col-sm-8">
-                                <select class="form-control input-sm" >
-                                    <option>正常</option>
-                                    <option>异常</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">录入方式</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm"  value="{{detail.FInputType | ctype}}">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-sm-4 control-label">巡检人</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm"  value="{{detail.FInspectPerson}}">
+                                <input type="text" class="form-control input-sm"  v-model="detail.InspectPerson">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">巡检时间</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm"  value="{{detail.FInspectDate | datetime}}">
+                                <input type="text" class="form-control input-sm"  v-model="detail.FInspectDate">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">描述</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control input-sm"  rows="3" value="{{detail.FRemark}}"></textarea>
+                                <textarea class="form-control input-sm"  rows="3" v-model="detail.FRemark"></textarea>
                             </div>
                         </div>
                     </form>
@@ -116,6 +105,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="panel-footer" style="height: 50px;">
+        <a class="btn btn-primary pull-right" v-on="click:onUpdate">
+            <span class="icon icon-save"></span>
+            保存</a>
     </div>
 </div>
 

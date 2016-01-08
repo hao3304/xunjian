@@ -83,7 +83,7 @@ module.exports = Vue.component("c-nav",{
                     active:false
                 }
             ],
-            "active":"",
+           "active":"",
             "child":"",
             "station":localStorage["STATIONID"]||""
         }
