@@ -48,7 +48,13 @@ window.app = new Vue({
         },
         "step":6,
         "nstep":0,
-        "hasInit":false
+        "hasInit":false,
+        "power":{
+            200100:false,
+            200200:false,
+            200300:false,
+            70000008:false
+        }
     },
     components:{
         "login":login
@@ -135,6 +141,19 @@ window.app = new Vue({
                     self._getUserList();
                     self.$broadcast("ready");
                 });
+
+                self._getUserPowerList(v);
+            })
+        },
+        _getUserPowerList: function (station) {
+            var self = this;
+            Service.getUserPowerList({userId:this.userid,stationId:station}, function (rep) {
+                for (var i = 0; i < rep.length; i++) {
+                    var obj = rep[i];
+                    if(self.power[obj.FPowerId]==false){
+                        self.power[obj.FPowerId] = true;
+                    }
+                }
             })
         },
         checkUser: function () {
@@ -270,8 +289,7 @@ router.on("/route",function(){
 });
 
 router.on("/addRecord",function(){
-    require.async(["page/record/add/add.js"], function (p) {
-        doRouter("addRecord",p);
+    require.async(["page/record/add/add.js"], function (p) {doRouter("addRecord",p);
     })
 });
 

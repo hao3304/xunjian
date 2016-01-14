@@ -392,6 +392,11 @@ function getRoutStruct(p,c){
     $.getJSONP(prefix+"getRoutStruct/"+p,c);
 }
 
+/*获取权限*/
+function getUserPowerList(p,c){
+    $.getJSONP2(prefix+"GetUserPowerList",p,c);
+}
+
 
 /*修改部位子对象列表*/
 function updateLocationObjectList(p,c){
@@ -464,6 +469,7 @@ function upFile(p,c){
 
 
 module.exports = {
+    getUserPowerList:getUserPowerList,
     setCookie:setCookie,
     getCookie:getCookie,
     clearCookie:clearCookie,

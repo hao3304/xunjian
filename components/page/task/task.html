@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <a class="btn btn-primary btn-sm "  v-on="click:onAdd" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
+        <a class="btn btn-primary btn-sm " v-if="power[70000008]"  v-on="click:onAdd" role="button"> <span class="icon icon-plus" aria-hidden="true"></span>
             Ìí¼Ó
         </a>
     </div>
@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status2}}</td><td> <a href="javascript:;" v-on="click:onDelTask(v.FId)">É¾³ý</a></td></tr>
+            <tr v-repeat="v in tasks"><td>{{v.FBeginTime | datetime}}</td><td>{{v.FEndTime | datetime}}</td><td>{{v.FRoutDesc}}</td><td>{{v.FInspectPersonName}}</td><td>{{v.FChargePersonName}}</td><td>{{v.FState | status2}}</td><td> <a v-if="power[70000008]" href="javascript:;" v-on="click:onDelTask(v.FId)">É¾³ý</a></td></tr>
             </tbody>
         </table>
         <!--<c-pager></c-pager>-->

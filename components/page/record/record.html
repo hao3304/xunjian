@@ -1,8 +1,9 @@
 <div class="panel">
     <div class="panel-heading">
-        <a  class="btn btn-primary btn-sm  " href="#addRecord" > <span class="icon icon-plus" aria-hidden="true"></span>
+        <a v-if="power[200100]" class="btn btn-primary btn-sm" href="#addRecord" > <span class="icon icon-plus" aria-hidden="true"></span>
             添加
         </a>
+        &nbsp;
         <a HREF="#contrast" class="btn btn-info btn-sm" role="button"> <span class="icon icon-info-sign" aria-hidden="true"></span>
             对比
         </a>
@@ -51,9 +52,7 @@
                 <td>{{r.FInspectPerson}}</td>
                 <td>{{r.FExcuteStatus | status}}</td>
                 <td> <span class="label"  v-class="label-success:r.FCheckStatus==1">{{r.FCheckStatus | check_state}}</span> </td>
-                <td><a href="javascript:;" v-on="click:onDelRecord(r.FId)">删除</a>
-                     <a  href="#record/edit/{{r.FId}}">编辑</a>
-                    <a href="#record/{{r.FId}}">查看</a></td></tr>
+                <td><a v-if="power[70000008]" href="javascript:;" v-on="click:onDelRecord(r.FId)">删除</a>&nbsp;<a v-if="power[70000008]"  href="#record/edit/{{r.FId}}">编辑</a>&nbsp;<a href="#record/{{r.FId}}">查看</a></td></tr>
             </tbody>
         </table>
         <!--<c-pager></c-pager>-->

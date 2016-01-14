@@ -7,6 +7,7 @@ var foot = require("foot/foot.js");
 var pager = require("pager/pager.js");
 var Service = require("main/service.js");
 var filter = require("component/filter/filter.js");
+var Router = require('component_modules/director').Router;
 
 module.exports = Vue.extend({
    inherit:true,
@@ -25,34 +26,49 @@ module.exports = Vue.extend({
             StartTime:"",
             FinishiTime:"",
             ExcuteStatus:1, /*执行状态*/
-            InputType:0, /*web输入*/
+            FInputType:0, /*web输入*/
             StationId:"", /*水电站ID*/
-            Remark:""
+            Remark:"",
+            CheckPersonName:"",
+            inputPersonName:"",
+            writePersonName:"",
+            FWriteTime:""
+
          },
-         pics:[]
+         pics:[],
+         showMore:false
       }
    },
    methods:{
       render:function(id){
          this.getDetail(id);
       },
+      onShowMore: function () {
+        this.showMore = true;
+      },
       getDetail: function (id) {
          var self = this;
          this.loading = true;
+         this.showMore = false;
          Service.getRecordById(id, function (rep) {
 
             self.detail.Id = rep.FId;
             self.detail.RoutName = rep.FRoutName;
             self.detail.Status = rep.FStatus;
             self.detail.RoutId = rep.FRoutId;
-            self.detail.RecordDesc= rep.FRecordDesc;
             self.detail.InspectDate = filter.tranDate(rep.FInspectDate);/*检查日期*/
             self.detail.InspectPerson = rep.FInspectPerson;/*检查人*/
             self.detail.ChargePersonId = rep.FChargePersonId;/*检查人*/
             self.detail.StartTime = filter.tranDate(rep.FStartTime);
             self.detail.FinishiTime = filter.tranDate(rep.FFinishiTime);
             self.detail.StationId = rep.FStationId;
-            self.detail.Remark = rep.FRemark;
+            self.detail.RecordDesc = rep.FRecordDesc;
+
+            self.detail.CheckPersonName = rep.checkPersonName;
+            self.detail.inputPersonName = rep.inputPersonName;
+            self.detail.FInputType = rep.FInputType ==1?"手机上传":"网页添加";
+            self.detail.writePersonName = rep.writePersonName;
+            self.detail.FWriteTime = filter.tranDate(rep.FWriteTime);
 
             self.contents = self.tranData(rep);
             self.loading = false;
@@ -149,7 +165,18 @@ module.exports = Vue.extend({
          $('#detailModal').modal('hide');
       },
       onUpdate: function () {
-         Service.updateInsRecord(JSON.stringify({recordstr:this.detail,ObjectContentResultListstr:this.contents}))
+         this.loading = true;
+         var self = this;
+         Service.updateInsRecord(JSON.stringify({recordstr:this.detail,ObjectContentResultListstr:this.contents}),function(rep){
+            self.loading = false;
+            if(rep == 1){
+               alert("更新成功！");
+               var router = new Router;
+               router.setRoute("record");
+            }else{
+               alert("更新失败！");
+            }
+         })
       }
    },
    ready: function () {

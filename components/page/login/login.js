@@ -14,6 +14,8 @@ module.exports = Vue.extend({
       return {
          logName:"dam_feid",
          logPass:"fei123",
+         //logName:"",
+         //logPass:"",
          isWarn:false
       }
    },
