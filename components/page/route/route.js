@@ -242,7 +242,7 @@ module.exports = Vue.extend({
       },
       doRoute: function (s) {
          var router = new Router();
-         var name = s.sectionName.replace(/#/g,"-%%-");
+         var name = s.sectionName.replace(/#/g,"-%%-").replace(/\+/g,"-&&-");
          router.setRoute("route/"+ s.FId +"/"+ s.FSectionId+"/"+encodeURI(name) );
       }
    },

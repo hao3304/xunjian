@@ -34,10 +34,12 @@ Vue.filter('datetime', function (str) {
 Vue.filter("status", function (type) {
     switch (type){
         case 0:{
-            return "正常";
+            return "未审核";
+            //return "正常";
         }break;
         case 1:{
-            return "异常";
+            return "已审核";
+            //return "异常";
         }break;
         case 2:{
             return "良好"
@@ -62,10 +64,12 @@ Vue.filter("status2", function (type) {
 function getStatus(type){
     switch (type){
         case 0:{
-            return "正常";
+            return "未审核";
+            //return "正常";
         }break;
         case 1:{
-            return "异常";
+            return "已审核";
+            //return "异常";
         }break;
         case 2:{
             return "良好"

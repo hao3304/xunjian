@@ -21,7 +21,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-repeat="l in list" v-on="click:onSelect(l)" v-class="active:l.FId==selectRoute"><td>{{l.FRoutName}}</td><td>{{l.FCycle}}</td><td>{{l.FCycleType | cycle_type}}</td><td>{{l.FStatus | state}}</td><td>{{l.FDescription}}</td><td>{{l.FRemark}}</td>
+                        <tr v-repeat="l in list" v-on="click:onSelect(l)" v-class="active:l.FId==selectRoute">
+                            <td>{{l.FRoutName}}</td>
+                            <td>{{l.FCycle}}</td>
+                            <td>{{l.FCycleType | cycle_type}}</td>
+                            <td>{{l.FStatus | state}}</td>
+                            <td>{{l.FDescription}}</td>
+                            <td>{{l.FRemark}}</td>
                             <td><a href="javascript:;" v-on="click:onEditRoute(l)">编辑</a> <a href="javascript:;" v-on="click:onDelRoute(l.FId)">删除</a></td></tr>
                         </tbody>
                     </table>
@@ -69,26 +75,26 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">路线名称</label>
                         <div class="col-sm-10">
                             <input  type="text" v-model="route.routName"  class="form-control" placeholder="路线名称">
                         </div>
                     </div>
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">周期</label>
                         <div class="col-sm-10">
                             <input  type="number" v-model="route.cycle"  class="form-control" placeholder="周期">
                         </div>
                     </div>
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">周期类型</label>
                         <div class="col-sm-10">
                             <select class="form-control" options="base.cycleType" v-model="route.cycleType">
                             </select>
                         </div>
                     </div>
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">路线状态</label>
                         <div class="col-sm-10">
                             <select class="form-control" v-model="route.status">
@@ -97,13 +103,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">周期描述</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="2" placeholder="周期描述" v-model="route.description"></textarea>
                         </div>
                     </div>
-                    <div class="form-group has-success has-feedback">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10">
                             <input  type="text" v-model="route.remark"  class="form-control" placeholder="备注">

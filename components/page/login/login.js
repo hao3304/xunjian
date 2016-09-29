@@ -12,11 +12,12 @@ module.exports = Vue.extend({
    template:__inline("login.html"),
    data: function () {
       return {
-         logName:"dam_feid",
-         logPass:"fei123",
-         //logName:"",
-         //logPass:"",
-         isWarn:false
+         //logName:"dam_feid",
+         //logPass:"fei123",
+         logName:"",
+         logPass:"",
+         isWarn:false,
+         saveInfo:false
       }
    },
    methods:{
@@ -25,15 +26,31 @@ module.exports = Vue.extend({
          var self = this;
          Service.onLogin({logName:this.logName,logPass:this.logPass}, function (rep) {
             if(rep){
-               Service.setCookie("FUserId",rep.FUserId,3600*1000);
+               Service.setCookie("FUserId",rep.FUserId,3600*10000);
+               self.onSaveInfo();
                self.$parent.init();
             }else{
                self.loading = false;
                self.isWarn = true;
             }
-
          })
-
+      },
+      onSaveInfo: function () {
+         window.localStorage["saveInfo"] = this.saveInfo;
+         if(this.saveInfo){
+            window.localStorage["saveInfo"] = true;
+            window.localStorage["logName"] = this.logName;
+            window.localStorage["logPass"] = this.logPass;
+         }
+      },
+      render: function () {
+         if(window.localStorage["saveInfo"]){
+            this.saveInfo =JSON.parse(window.localStorage["saveInfo"]);
+            if(this.saveInfo){
+               this.logName = window.localStorage["logName"];
+               this.logPass = window.localStorage["logPass"];
+            }
+         }
       }
    },
    computed:{
@@ -42,7 +59,7 @@ module.exports = Vue.extend({
          if(s==1){
             setTimeout(function () {
                var router = new Router();
-               router.setRoute("query");
+               router.setRoute("record");
                this.loading = false;
             },500)
          }
@@ -50,6 +67,6 @@ module.exports = Vue.extend({
       }
    },
    ready: function () {
-
+      this.render();
    }
 });

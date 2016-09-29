@@ -1,3 +1,6 @@
+var prefix = "inspectService";
+//var prefix = "";
+
 
 fis.hook('module', {
     mode: 'mod'
@@ -10,7 +13,7 @@ fis.hook('module', {
 //components下面的所有js资源都是组件化资源
 fis.match("components/**", {
     isMod: true,
-    release: '/static/$0'
+    release:prefix+ '/static/$0'
 });
 
 //doc目录不发布
@@ -21,7 +24,7 @@ fis.match("doc/**", {
 fis.match("/component_modules/*.js", {
     isMod: true,
     useMap: true,
-    release: '/static/$0'
+    release:prefix+ '/static/$0'
 });
 
 //component组件资源id支持简写
@@ -32,7 +35,7 @@ fis.match(/^\/components\/component\/(.*)$/i, {
 
 //page里的页面发布到根目录
 fis.match("components/page/(*.html)",{
-    release: '/$1',
+    release: prefix+'/$1',
     useCache : false
 });
 
@@ -46,7 +49,13 @@ fis.match('**/*.scss', {
 
 //文章封面和作者头像等动态图片地址不加hash
 fis.match(/static\/images\/.*\.(jpeg|jpg|png)$/,{
-    useHash: false
+    useHash: false,
+    release: prefix+'/$0'
+})
+
+fis.match("/static/**/*.*",{
+    useHash:false,
+    release:prefix+"/$0"
 })
 
 
@@ -64,7 +73,7 @@ fis.match('::packager', {
     })
 
 }).match('**/*.{css,scss}', {
-    packTo: '/static/pkg/all.css' //css打成一个包
+    packTo:prefix+  '/static/pkg/all.css' //css打成一个包
 })
 
 

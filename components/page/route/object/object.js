@@ -159,6 +159,7 @@ module.exports = Vue.extend({
          self.routeObject.id = p.id;
          self.routeObject.sid = p.sid;
          self.routeObject.name = p.name;
+         self.getSectionObj(p.id);
          self.getList(p.id);
       })
    }

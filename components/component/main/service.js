@@ -2,7 +2,8 @@
  * Created by jack on 2015/8/17.
  */
 //var prefix = "";
-var prefix = "http://221.12.173.124:8080/inspectservice/DataManagerService/";
+var base = "http://221.12.173.124:8080/inspectservice/";
+var prefix = base + "DataManagerService/";
 
 $.del = function (url,callback) {
     return $.ajax({
@@ -398,6 +399,17 @@ function getUserPowerList(p,c){
 }
 
 
+/*获取当前登录用户*/
+function getCurrentUser(c){
+    $.getJSONP(prefix+"getCurrentUser",c);
+}
+/*注销登录用户*/
+function logOut(c){
+    $.getJSONP(prefix+"logOut",c);
+}
+
+
+
 /*修改部位子对象列表*/
 function updateLocationObjectList(p,c){
     $.ajax({
@@ -456,7 +468,7 @@ function upFile(p,c){
     $.ajaxFileUpload
     (
         {
-            url:'http://221.12.173.124:8080/inspectservice/fileuploadhandle.ashx?OutID=1&FileOutType=1', //用于文件上传的服务器端请求地址
+            url:base+'fileuploadhandle.ashx?OutID=1&FileOutType=1', //用于文件上传的服务器端请求地址
             secureuri: false,
             fileElementId: '_f'+p,
             dataType: 'json',
@@ -469,6 +481,9 @@ function upFile(p,c){
 
 
 module.exports = {
+    baseUrl: base,
+    getCurrentUser:getCurrentUser,
+    logOut:logOut,
     getUserPowerList:getUserPowerList,
     setCookie:setCookie,
     getCookie:getCookie,

@@ -1,6 +1,6 @@
 <div class="panel panel-info" v-style="min-height:contentHeight+'px'">
     <div class="panel-heading" style="line-height: 28px;">
-        巡检记录详情(开发中)
+        巡检记录详情
         <a class="btn btn-default pull-right btn-sm" href="#record"  role="button"> <span class="icon icon-arrow-left" aria-hidden="true"></span>
             返回
         </a>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">巡检人</label>
+                            <label class="col-sm-4 control-label">负责人</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control input-sm"  v-model="detail.InspectPerson">
                             </div>
@@ -136,7 +136,16 @@
                             <td>{{r.contentName}}</td>
                             <td>{{r.FContentStatus | status}}</td>
                             <td><input class="form-control input-sm" v-model="r.FContentValue"></td>
-                            <td><a  v-on="click:getPic(r.FId)" href="javascript:;" v-show="r.fileCount>0">查看图片</a></td>
+                            <td>
+                                <a  v-on="click:getPic(r.FId)" href="javascript:;" v-show="r.fileCount>0">已有照片</a>
+                                <br/>
+                                <div v-show="r.FileList.length>0">
+                                    <img v-repeat="f in r.FileList" v-attr="src:getSrc(f)" style="width: 50px;height: 50px;">
+                                </div>
+                                <a href="javascript:;" class="file">上传
+                                    <input type="file" name="_f" id="_f{{$index}}" v-attr="title:count" v-on="change:upFile(r,$index)">
+                                </a>
+                            </td>
 
                             <td>{{r.FRemark}}</td>
                             <!--<td rowspan="{{r.rows}}" style="vertical-align: middle;text-align: center;" v-show="r.rows" v-html="r.CheckResult" ></td>-->
@@ -165,12 +174,13 @@
             </div>
             <div class="modal-body">
                 <div class="row" v-repeat="p in pics">
-                    <div class="col-sm-12 col-md-12">
-                        <div class="thumbnail">
-                            <img v-attr="src:p.FFileRelativeAddress" >
+                    <div class="col-sm-4 col-md-4">
+                        <div class="thumbnail" style="text-align: center">
+                            <img v-attr="src:p.FFileRelativeAddress" class="img-rounded">
                             <div class="caption">
                                 <h3 style="text-align: center">{{p.FFileCreateTime | datetime}}</h3>
                             </div>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">删除照片</button>
                         </div>
                     </div>
                 </div>

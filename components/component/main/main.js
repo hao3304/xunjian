@@ -29,9 +29,8 @@ window.app = new Vue({
                 {value:4,text:"ƒÍ"}
             ],
             "status":[
-                {value:0,text:"’˝≥£"},
-                {value:1,text:"“Ï≥£"},
-                {value:2,text:"¡º∫√"}
+                {value:0,text:"Œ¥…Û∫À"},
+                {value:1,text:"“—…Û∫À"}
             ],
             "checkState":[
                 {value:0,text:"Œ¥…Û∫À"},
@@ -39,7 +38,8 @@ window.app = new Vue({
             ]
         },
         "auth":{
-            userid:""
+            userid:"",
+            username:""
         },
         "routeObject":{
             id:"",
@@ -71,6 +71,7 @@ window.app = new Vue({
             this.loading = true;
             this._getStationList();
             this.hasInit = true;
+            this.getCurrentUser();
         },
         _getRout: function () {
             var self = this;
@@ -147,14 +148,16 @@ window.app = new Vue({
         },
         _getUserPowerList: function (station) {
             var self = this;
-            Service.getUserPowerList({userId:this.userid,stationId:station}, function (rep) {
-                for (var i = 0; i < rep.length; i++) {
-                    var obj = rep[i];
-                    if(self.power[obj.FPowerId]==false){
-                        self.power[obj.FPowerId] = true;
+            if(Service.getCookie("FUserId")){
+                Service.getUserPowerList({userId:Service.getCookie("FUserId"),stationId:station}, function (rep) {
+                    for (var i = 0; i < rep.length; i++) {
+                        var obj = rep[i];
+                        if(self.power[obj.FPowerId]==false){
+                            self.power[obj.FPowerId] = true;
+                        }
                     }
-                }
-            })
+                })
+            }
         },
         checkUser: function () {
             this.userid = Service.getCookie("FUserId");
@@ -166,6 +169,13 @@ window.app = new Vue({
                 var router = new Router();
                 router.setRoute("login");
             }
+        },
+        getCurrentUser: function () {
+            var self = this;
+            Service.getCurrentUser(function (rep) {
+                self.auth.userid = rep.FUserId;
+                self.auth.username = rep.FUserName;
+            })
         }
     },
     ready: function () {

@@ -239,7 +239,6 @@ module.exports = Vue.extend({
          this.onQuery();
       },
       getPic: function (v) {
-         debugger
          var self = this;
          this.loading = true;
          Service.getInspectObjectContentResultFileList(v, function (rep) {

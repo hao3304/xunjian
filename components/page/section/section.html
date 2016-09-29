@@ -51,7 +51,7 @@
                             <h5 class="list-group-item-heading">{{s.FObjectFullName}}</h5>
                             <span class="number">{{$index+1}}</span>
                         </a>
-                        <div class="triangle-down"></div>
+                        <!--<div class="triangle-down"></div>-->
                     </div>
                     <h5 v-if="sectionObjList.length==0">‘›Œﬁ∂‘œÛ</h5>
                 </div>
@@ -87,13 +87,13 @@
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">∂Àµ„A±‡¬Î</label>
                         <div class="col-sm-10">
-                            <input type="number" v-model="section.radioA" class="form-control" placeholder="∂Àµ„A±‡¬Î">
+                            <input type="text" v-model="section.radioA" class="form-control" placeholder="∂Àµ„A±‡¬Î">
                         </div>
                     </div>
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">∂Àµ„B±‡¬Î</label>
                         <div class="col-sm-10">
-                            <input type="number" v-model="section.radioB" class="form-control"  placeholder="∂Àµ„B±‡¬Î">
+                            <input type="text" v-model="section.radioB" class="form-control"  placeholder="∂Àµ„B±‡¬Î">
                         </div>
                     </div>
                     <div class="form-group">

@@ -4,6 +4,7 @@
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
+var Router = require('component_modules/director').Router;
 
 module.exports = Vue.component("c-nav",{
     inherit:true,
@@ -71,17 +72,17 @@ module.exports = Vue.component("c-nav",{
                         }
 
                     ]
-                },
+                }
                 //{
                 //    name: "缺陷管理",
                 //    key: "defect",
                 //    active:false
                 //},
-                {
+              /*  {
                     name: "系统设置",
                     key: "config",
                     active:false
-                }
+                }*/
             ],
            "active":"",
             "child":"",
@@ -121,7 +122,16 @@ module.exports = Vue.component("c-nav",{
         }
     },
     methods:{
-
+        onLogOut: function () {
+            var r = confirm("确定退出当前用户？");
+            if(r){
+                Service.logOut(function (rep) {
+                    var router = new Router;
+                    router.setRoute("login");
+                    window.location.reload();
+                });
+            }
+        }
     },
     ready: function () {
 

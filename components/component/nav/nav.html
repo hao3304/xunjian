@@ -6,14 +6,14 @@
         </span>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#home">
+                <a class="navbar-brand" href="#record">
                     <h1 class="title">
-                        水电站巡视检查管理系统
+                        水电厂巡视检查管理系统
                     </h1>
                 </a>
-                <!--<span>当前用户：费丁 <a href="javascript:;">注销</a></span>-->
+                <span class="user-info">当前用户：{{auth.username}} <a href="javascript:;" v-on="click:onLogOut"> 注销</a></span>
             </div>
-            <ul id="nav-nar" class="nav navbar-nav navbar-right">
+            <ul id="nav-nar" class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li v-repeat="f in func" v-class="dropdown:f.child,active:f.key == active">
                     <a v-if="f.child" href="#"  class="dropdown-toggle parent" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{f.name}} <span class="caret"></span></a>
                     <a v-if="!f.child" class="parent" href="#{{f.key}}" >{{f.name}}</span></a>

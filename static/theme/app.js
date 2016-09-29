@@ -218,7 +218,7 @@ $(function () {
                 var dl = result.recordSecDetailList;
 
                 for(var i = 0;i<data.length;i++){
-                    data[i].CheckResult = "未现场检查";
+                    data[i].CheckResult = "未记录";
                     for(var d= 0;d < dl.length;d++){
                         if(dl[d].FSectionId == data[i].sectionId){
                             var beginstr = this.tranDate(dl[d].FBeginTime,"day");

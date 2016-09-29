@@ -37,7 +37,7 @@
                 <th>结束时间</th>
                 <th>路线</th>
                 <th>持续时间</th>
-                <th>巡检人</th>
+                <th>负责人</th>
                 <th>评价</th>
                 <th>审核状态</th>
                 <th>操作</th>
@@ -47,10 +47,10 @@
             <tr v-repeat="r in records">
                 <td>{{r.FStartTime | datetime}}</td>
                 <td>{{r.FFinishiTime | datetime}}</td>
-                <td>{{r.routName}}</td>
+                <td>{{r.FRoutName}}</td>
                 <td>{{Continued(r)}}</td>
                 <td>{{r.FInspectPerson}}</td>
-                <td>{{r.FExcuteStatus | status}}</td>
+                <td>{{r.FStatus | status}}</td>
                 <td> <span class="label"  v-class="label-success:r.FCheckStatus==1">{{r.FCheckStatus | check_state}}</span> </td>
                 <td><a v-if="power[70000008]" href="javascript:;" v-on="click:onDelRecord(r.FId)">删除</a>&nbsp;<a v-if="power[70000008]"  href="#record/edit/{{r.FId}}">编辑</a>&nbsp;<a href="#record/{{r.FId}}">查看</a></td></tr>
             </tbody>

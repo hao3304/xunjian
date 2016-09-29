@@ -1,7 +1,7 @@
 <div class="page-login" >
     <div class="page-section">
         <h1 class="login-title" >
-            水电站巡视检查管理系统
+            水电厂巡视检查管理系统
         </h1>
         <div class="page-from">
             <div class="form-input">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-btn">
                     <input type="button" v-on="click:onLogin"  value="登录" style="margin-left: 120px;">
-                    <!--<label><input type="checkbox"> 记住账号</label>-->
+                    <label><input type="checkbox" v-model="saveInfo"> 记住账号</label>
                     <!--<span>忘记密码？</span>-->
                 </div>
             </div>

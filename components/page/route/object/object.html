@@ -11,7 +11,7 @@
             <span>{{getName(routeObject.name)}}</span>
         </div>
         <div class="panel-body">
-            <table class="table custom table-bordered table-striped table-hover">
+            <table class="table  table-bordered table-striped table-hover">
                 <thead>
                 <tr>
                     <th style="text-align: center">对象名</th> <th style="text-align: center">操作</th>
@@ -47,7 +47,7 @@
                         <li role="presentation"v-class="active:tab=='all'" ><a v-on="click:changeTab('all')" href="javascript:;">全部对象</a></li>
                     </ul>
                     <div style="max-height: 300px;overflow-y: auto;" v-if="tab=='section'">
-                        <table class="table custom table-bordered table-striped table-hover">
+                        <table class="table  table-bordered table-striped table-hover">
                             <thead>
                             <tr >
                                 <th>序号</th>
@@ -67,7 +67,7 @@
                         </table>
                     </div>
                     <div style="max-height: 300px;overflow-y: auto;" v-if="tab=='all'">
-                        <table class="table custom table-bordered table-striped table-hover">
+                        <table class="table  table-bordered table-striped table-hover">
                             <thead>
                             <tr >
                                 <th>序号</th>

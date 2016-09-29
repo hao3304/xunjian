@@ -42,5 +42,13 @@
   color: #fff;
 }
 .nav-header #nav-nar .active > a.parent {
-  background-image: linear-gradient(to bottom, #ffffff 0, #ffffff 100%) !important;
+  background-image: linear-gradient(to bottom, #fff 0, #fff 100%) !important;
+}
+.nav-header .user-info {
+  color: #93E63B;
+  font-weight: bold;
+  position: absolute;
+  left: 25px;
+  bottom: 5px;
+  font-size: 13px;
 }

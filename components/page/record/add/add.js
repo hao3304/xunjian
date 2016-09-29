@@ -21,7 +21,7 @@ module.exports = Vue.extend({
             RecordDesc:"",
             InspectDate:"", /*检查日期*/
             InspectPerson:"", /*检查人*/
-            ChargePersonId:"",/*负责人*/
+            //ChargePersonId:0,/*负责人*/
             StartTime:"",
             FinishiTime:"",
             ExcuteStatus:1, /*执行状态*/
@@ -131,7 +131,7 @@ module.exports = Vue.extend({
          return false;
       },
       getSrc: function (f) {
-         return "http://221.12.173.124:8080/inspectservice/"+f.FileRelativeAddress;
+         return Service.baseUrl +f.FileRelativeAddress;
       },
       submitRecord: function () {
          this.loading = true;
@@ -149,7 +149,7 @@ module.exports = Vue.extend({
          this.record.RecordDesc="";
          this.record.InspectDate ="";/*检查日期*/
          this.record.InspectPerson ="";/*检查人*/
-         this.record.ChargePersonId ="";/*检查人*/
+         //this.record.ChargePersonId ="";/*检查人*/
          this.record.StartTime = "";
          this.record.FinishiTime = "";
          this.record.StationId = localStorage["STATIONID"];
@@ -173,6 +173,9 @@ module.exports = Vue.extend({
                }
             }
          }
+      },
+      "record.StartTime": function (v) {
+         this.record.InspectDate = v.split(" ")[0];
       }
    },
    computed: {
@@ -184,8 +187,8 @@ module.exports = Vue.extend({
             StartTime: Check.check(this.record.StartTime,"datetime"),
             FinishiTime: Check.check(this.record.FinishiTime,"datetime"),
             InspectPerson: Check.check(this.record.InspectPerson,"required"),
-            ChargePersonId: Check.check(this.record.ChargePersonId,"required"),
-            InspectDate: Check.check(this.record.InspectDate,"datetime")
+            //ChargePersonId: Check.check(this.record.ChargePersonId,"required"),
+            InspectDate: Check.check(this.record.InspectDate,"required")
          }
       },
       isValid: function () {

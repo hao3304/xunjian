@@ -15,7 +15,8 @@ module.exports = Vue.extend({
       return {
          contents:[],
          detail:{},
-         pics:[]
+         pics:[],
+         showMore:false
       }
    },
    methods:{
@@ -30,6 +31,9 @@ module.exports = Vue.extend({
             self.contents = self.tranData(rep);
             self.loading = false;
          })
+      },
+      onShowMore: function () {
+        this.showMore = true;
       },
       tranData: function (result) {
          var data  = result.recordResultContentList;
@@ -61,7 +65,7 @@ module.exports = Vue.extend({
             var dl = result.recordSecDetailList;
 
             for(var i = 0;i<data.length;i++){
-               data[i].CheckResult = "未现场检查";
+               data[i].CheckResult = "未记录";
                for(var d= 0;d < dl.length;d++){
                   if(dl[d].FSectionId == data[i].sectionId){
                      var beginstr = filter.tranDate(dl[d].FBeginTime);
@@ -108,7 +112,7 @@ module.exports = Vue.extend({
          this.loading = true;
          Service.getInspectObjectContentResultFileList(v, function (rep) {
             for(var i=0;i<rep.length;i++){
-               rep[i].FFileRelativeAddress =  "http://221.12.173.124:8080/inspectservice/"+rep[i].FFileRelativeAddress;
+               rep[i].FFileRelativeAddress =  Service.baseUrl+rep[i].FFileRelativeAddress;
             }
             self.pics = rep;
             self.loading = false;

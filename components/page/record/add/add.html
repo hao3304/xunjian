@@ -32,7 +32,7 @@
                                 <span class="label label-warning">必选</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                      <!--  <div class="form-group"  style="display: none">
                             <label class="col-sm-3 control-label">负责人</label>
                             <div class="col-sm-7">
                                 <select class="form-control"  v-model="record.ChargePersonId" options="base.userList">
@@ -42,7 +42,7 @@
                             <div class="col-sm-2 validator" v-show="!validation.ChargePersonId">
                                 <span class="label label-warning">必填</span>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="input-group">
                                 <label class="col-sm-3 control-label">开始时间</label>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">巡检人</label>
+                            <label class="col-sm-3 control-label">负责人</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control " v-model="record.InspectPerson" placeholder="巡检人">
                             </div>
@@ -91,7 +91,7 @@
                             <label class="col-sm-3 control-label">检查日期</label>
                             <div class="col-sm-7">
                                 <div class="input-group">
-                                    <input type="text" id="inspectDate" class="form-control " v-model="record.InspectDate" placeholder="结束时间">
+                                    <input type="text" id="inspectDate" class="form-control " v-model="record.InspectDate" placeholder="检查日期">
                                    <span class="input-group-btn">
                                        <a class="btn btn-default ">
                                            <span style="right: 15px;" class="icon icon-calendar " aria-hidden="true"></span>
